@@ -1,7 +1,7 @@
 function heliCamSetParameters(ObjCamera)
 	%	function that load the parameters of the camera from
 	% the attributs of the objects
-	% Might be irrelevant since we can us the config file
+	% Might become irrelevant since we can use the config file
 
 	if ObjCamera.AcqMode
 		disp("WARNING : AcqMode = true ,the setting of parameters might not work ");

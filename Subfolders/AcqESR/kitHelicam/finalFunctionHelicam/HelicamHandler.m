@@ -8,16 +8,13 @@ classdef  HelicamHandler < handle
 
 
 
-		% paramters are all around the code but they all need to be
-		% initialize here, you can not add a variable to class after it's creation (as far as I know)
-
 		%%%%%%%%%%% Camera parameters
 
 		TriggerMode = "TriggerSoftware";
-		NFramesDiscard = 3; %TODO: check if this value is really irrelevent, i.e if first frame are really not exploitable
+		NFramesDiscard = 3; % TODO: check if this value is relevent, examples of the 
 		sensitivity = 0.5;
 		% Number of intergration periods
-		NPeriods = 10; % Increase this value and exposure to get more accurate values
+		NPeriods = 10; % Increase this value and exposure to get more accurate values, may result in saturation
 
 		%Number of frames per burst of acquisition 
 		NbFrames = 8;
@@ -55,10 +52,11 @@ classdef  HelicamHandler < handle
 
 	end
 
-	methods 
+	methods
+		
 	function ObjCamera = HelicamHandler(ObjCamera)
 			% establish camera connection	
-			% must be call to comunicate with the camera at startup
+			% must be call to communicate with the camera at start
 	
 			if ~NET.isNETSupported
 			    disp('Supported .NET Framework not found')
@@ -76,8 +74,6 @@ classdef  HelicamHandler < handle
 			devNo = selectDevice(c4if); % camera side
 			c4dev = c4if.openDevice(devNo);
 
-			% ObjCamera should carry all the method
-		    % to configure and control the camera
 		    % -> c4dev is the interface that write commande to the camera
 		    % and send the software trigger
 			% -> c4sys TODO : describe what the c4sys object is for (probably the driver interface)
@@ -87,10 +83,10 @@ classdef  HelicamHandler < handle
 			ObjCamera.c4sys = c4sys;
 			ObjCamera.c4if  = c4if;
 
-			%TODO: set all variable fo the ObjCamera			% from the ToWrite.md file
-			%TODO : charge a config file for parameters 
+			% TODO: set all variable fo the ObjCamera
+			% TODO : charge a config file for parameters 
 			
-			% for the heliCamGetImage functiun
+			% for the heliCamGetImage function
 			disp("default parameters");
 			heliCamSetParameters(ObjCamera);
 			
