@@ -28,6 +28,13 @@ switch NumCompFit
         else
             BOut = sqrt(3)*FitTot(:,:,3)/gmub;
         end
+
+        if FitMethod == 9
+            BOut = FitTot(:,:,5); % in mT
+        end
+
+
+        
     case 2
         BTmp(:,:,:) = FitTot(:,:,5:6)/gmub;
         BOut = zeros([size(BTmp(:,:,1)), 3]); %We will have Bz= B(:,:,3) = 0

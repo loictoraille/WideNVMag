@@ -3,8 +3,8 @@ function jx = fitOneEsr(V_MHz, Spectre, pStart, isPlot, FitParameters)
 
 ReadFitParameters;
 
-if FitMethod == 7 || FitMethod == 8
-    FitStuff = 0;
+if FitMethod == 7 || FitMethod == 8 || FitMethod == 9
+     FitStuff = 0;
 else
     FitStuff = 1;
 end
@@ -82,6 +82,22 @@ else
 end
 
 switch FitMethod
+
+    case 9
+        % MIT model based method for magnetic field and temperature measurement in the case of a
+        % NV dense coating
+        % see the paper that inspired this method : https://pubs.acs.org/doi/full/10.1021/acsami.0c01545
+        %%
+        bstart = 0.5;
+        MiddleFreq = OdmrCentreV2(SPX,SPY);
+        MagField = fitOneEsrCoatedNVModel(SPX,SPY,MiddleFreq,bstart);
+
+        jx = [0 0 0 MiddleFreq MagField 0 0];
+        
+
+
+
+
     case 8 % Correlation method
 %         MiddleFreq = OdmrCentre(SPX,SPY); % old correlation with rectangles
         MiddleFreq = OdmrCentreV2(SPX,SPY); % new correlation with lorentzians
