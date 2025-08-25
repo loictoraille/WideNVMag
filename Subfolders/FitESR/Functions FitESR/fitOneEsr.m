@@ -23,7 +23,7 @@ if UpperBound
     pUb = full_upper_bound;
 else
     pUb = [];
-end    
+end
 
 if UsePstart
     pStart = pStart(:,1)';
@@ -35,7 +35,7 @@ else
         Base = ones(length(SPY),1)*GetRenormValue(InvSPY);
         Corrected_Intensity = InvSPY-Base;
         SmoothedForFindPeaks = sgolayfilt(Corrected_Intensity, smooth_order, smooth_window);
-        
+
         gcbo_test = gcbo;
         if ~isempty(gcbo_test)
             panel=guidata(gcbo);
@@ -47,19 +47,19 @@ else
                 NumPeaks = NumComp;
             end
         end
-        
+
         if NumPeaks ~= 0
             [peakint, peakloc, widths] = findpeaks(SmoothedForFindPeaks, SPX, 'SortStr','descend','NPeaks',NumPeaks,'MinPeakDistance',minDistBetweenPeaks);
         else
             [peakint, peakloc, widths] = findpeaks(SmoothedForFindPeaks, SPX, 'MinPeakHeight', max(SmoothedForFindPeaks)*height_threshold);
         end
-        
+
         % tri dans l'ordre des positions croissantes
         [~,order_peaks] = sort(peakloc);
         peakint = peakint(order_peaks);
         peakloc = peakloc(order_peaks);
         widths = widths(order_peaks);
-        
+
         FoundPeaks = length(peakint);
         if FoundPeaks == 0
             pStart = pStart(:,1)';
@@ -90,10 +90,10 @@ switch FitMethod
         %%
         bstart = 0.5;
         MiddleFreq = OdmrCentreV2(SPX,SPY);
-        MagField = fitOneEsrCoatedNVModel(SPX,SPY,MiddleFreq,bstart);
+        MagField = fastMagneticFieldfit(SPX,SPY,MiddleFreq,bstart);
 
         jx = [0 0 0 MiddleFreq MagField 0 0];
-        
+
 
 
 
@@ -102,28 +102,28 @@ switch FitMethod
 %         MiddleFreq = OdmrCentre(SPX,SPY); % old correlation with rectangles
         MiddleFreq = OdmrCentreV2(SPX,SPY); % new correlation with lorentzians
         jx = [0 0 0 MiddleFreq 0 0 0];
-    
+
     case 7 % Barycentre estimation for the middlefreq
         MiddleFreq = GetBarycentre(SPX,SPY);
         jx = [0 0 0 MiddleFreq 0 0 0];
-    
-    case 1  % in case 1 we fit TWO Lorentzians per ESR peak spaced 
-            % by 3 MHz corresponding to the N14 hyperfine interaction  
+
+    case 1  % in case 1 we fit TWO Lorentzians per ESR peak spaced
+            % by 3 MHz corresponding to the N14 hyperfine interaction
         Ffit = DefJacFw(V_MHz, VarWidths, NumComp, IsPair);
         if UsePstart ~= 1
             pStart(1:NumPeaks) = pStart(1:NumPeaks)/pStart(end);
         end
         jx = fitOneEsrLor(Spectre, pStart, pLb, pUb, Ffit);
-%     case 2  % NOT IMPLEMENTED YET In case 2 we fit ONE Lorentzians 
+%     case 2  % NOT IMPLEMENTED YET In case 2 we fit ONE Lorentzians
 
 %     case 3  % NOT IMPLEMENTED YET In case 3 we fit THREE lorentzians per ESR peak
-%     spaced by 2 MHz corresponding to the N14 hyperfine interaction 
+%     spaced by 2 MHz corresponding to the N14 hyperfine interaction
 
-    case 4  % In case 4 we use an order 3 polynomial to extract 
+    case 4  % In case 4 we use an order 3 polynomial to extract
             % the positions of the peaks
         jx = fitOneEsrPoly(V_MHz, Spectre, pStart, NumComp, IsPair, VarWidths, isPlot);
-        
-    case 5 % Automatic advanced baseline removing 
+
+    case 5 % Automatic advanced baseline removing
         % usePstart part already covered at the start
 %         if UsePstart
 %             if IsPair
@@ -132,7 +132,7 @@ switch FitMethod
 %                 numPeaks = numComp;
 %             end
 %             if rem(numPeaks,2) == 0
-%                 pStart = LoadPStart('PstartFit',numPeaks/2,VarWidths,IsPair,V_MHz); 
+%                 pStart = LoadPStart('PstartFit',numPeaks/2,VarWidths,IsPair,V_MHz);
 %                 pStart(1:numPeaks) = pStart(1:numPeaks)*pStart(end);
 %                 pStart = pStart(1:end-1);% deleting the baseline value for this fit method
 %                 pStart = FromPairToPos(pStart).';
@@ -147,6 +147,6 @@ switch FitMethod
             pStart = pStart(1:end-1);% deleting the baseline value for this fit method
             pStart = FromPairToPos(pStart).';% correct order and formatting
         end
-        [~,~,jx] = AutoFit(V_MHz,Spectre,pStart,FitParameters);      
-    
+        [~,~,jx] = AutoFit(V_MHz,Spectre,pStart,FitParameters);
+
 end

@@ -155,6 +155,56 @@ elseif FitMethod == 7 || FitMethod == 8
     caxis([FMmin,FMmax]);
     c = colorbar;
     c.FontSize = 10.5;
+
+
+elseif FitMethod == 9
+    
+    FM = FitTot(:,:,4);
+    FMmin = PlotScale{5};
+    FMmax = PlotScale{6};
+    Bfield = FitTot(:,:,5);
+    bfieldMax = max(FitTot(:,:,5),[],"all")*1.01; % fix in case the matrix is homogeneous
+    bfieldMin = min(FitTot(:,:,5),[],"all");
+    
+    fig = figure('Name',[fname '-FastFitMethod'],'Position',[300,100,1350,750]);
+    
+    subplot(1,3,1)    
+    imagesc(x_axis,y_axis,squeeze(ESRMatrix(y_start:end-y_stoptoend-1,x_start:end-x_stoptoend-1,1)));
+    title({'PL (a.u.)';''});
+    axis('image');
+    ax = gca;
+    ax.XAxisLocation = 'bottom';
+    ax.TickDir = 'out';
+    xlabel(xlabel_str);
+    ylabel(ylabel_str);
+    c = colorbar;
+    c.FontSize = 10.5;
+    
+    subplot(1,3,2)
+    imagesc(x_axis,y_axis,FM);
+    title({'Middle frequency (MHz)';''});
+    axis('image');
+    ax = gca;
+    ax.XAxisLocation = 'bottom';
+    ax.TickDir = 'out';
+    xlabel(xlabel_str);
+    ylabel(ylabel_str);
+    caxis([FMmin,FMmax]);
+    c = colorbar;
+    c.FontSize = 10.5;
+
+    subplot(1,3,3)
+    imagesc(x_axis,y_axis,Bfield);
+    title({'Magnetic field in Gauss';''});
+    axis('image');
+    ax = gca;
+    ax.XAxisLocation = 'bottom';
+    ax.TickDir = 'out';
+    xlabel(xlabel_str);
+    ylabel(ylabel_str);
+    caxis([bfieldMin,bfieldMax]);
+    c = colorbar;
+    c.FontSize = 10.5;
     
 elseif NumComp == 2    
     
