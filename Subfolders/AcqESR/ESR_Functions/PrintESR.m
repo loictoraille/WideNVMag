@@ -29,11 +29,9 @@ end
 
 %case single pixel
 
-%we normalize with the five first values and the last five values
-
-Sp1=MatIn(PixY,PixX,:);
-renorm1_value = GetRenormValue(squeeze(Sp1));
-panel.l21.XData=Ftot;panel.l21.YData=squeeze(Sp1)./renorm1_value;
+Sp1=MatIn(PixY,PixX,:); % the spectrum at PixX, PixY is taken from the data 3D matrix
+renorm1_value = GetRenormValue(squeeze(Sp1)); % estimation of the renormalization value, see function
+panel.l21.XData=Ftot;panel.l21.YData=squeeze(Sp1)./renorm1_value; % renormalization and plot
 lum1_value = renorm1_value;
 
 % if ind_calib_nm

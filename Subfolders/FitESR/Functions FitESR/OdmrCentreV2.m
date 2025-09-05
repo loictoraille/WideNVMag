@@ -35,12 +35,12 @@ Xcorr = conv(max(SpectreReshaped)-SpectreReshaped,kernel,"same");
 
 
 % Parabolic interpolation using the points around the maximum
-x1 = v_MHz(idx - 1);
+x1 = v_MHz(max(1,idx - 1));
 x2 = v_MHz(idx);
-x3 = v_MHz(idx + 1);
-y1 = Xcorr(idx - 1);
+x3 = v_MHz(min(length(v_MHz),idx + 1));
+y1 = Xcorr(max(1,idx - 1));
 y2 = Xcorr(idx);
-y3 = Xcorr(idx + 1);
+y3 = Xcorr(min(length(Xcorr),idx + 1));
 
 % Coefficients of the parabola y = ax^2 + bx + c
 denom = (x1 - x2) * (x1 - x3) * (x2 - x3);

@@ -9,8 +9,8 @@ PFIT(1:NumPeaks) = jx(NewOrder);
 
 % mid frequency and splittings
 for i=1:NumPeaks/2
-    PFIT(NumPeaks+i) = jx(NumPeaks+NewOrder(2*i))-jx(NumPeaks+NewOrder(2*i-1));
-    PFIT(NumPeaks+NumPeaks/2+i) = mean([jx(NumPeaks+NewOrder(2*i-1)),jx(NumPeaks+NewOrder(2*i))]);
+    PFIT(NumPeaks+i) = jx(NumPeaks+NewOrder(2*i))-jx(NumPeaks+NewOrder(2*i-1)); % splitting
+    PFIT(NumPeaks+NumPeaks/2+i) = mean([jx(NumPeaks+NewOrder(2*i-1)),jx(NumPeaks+NewOrder(2*i))]); % middle frequency
 end
     
 % widths
