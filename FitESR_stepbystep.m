@@ -12,6 +12,7 @@ ReadFitParameters;
 [Calib_Dist,size_pix] = UpdateCalibParameters(AcqParameters,Calib_Dist,size_pix);
 
 [h,w,~] = size(ESRMatrix);
+Cropping_Coord = [Crop 1 1 w h]; %added manually, change if needed
 [x_start, y_start, x_stoptoend, y_stoptoend, wcrop, hcrop] = Cropping(w,h,Cropping_Coord);
 [x_um, y_um] = xyAxes_um(wcrop,hcrop,size_pix);
 
