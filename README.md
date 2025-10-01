@@ -1,6 +1,19 @@
 # WideNVMag
 Matlab interface code to acquire and treat widefield NV centers data for NV magnetometry.
 
+Please cite this repository by using the github citing tool, or the following bibtex indicator:
+
+@software{Toraille_WideNVMag_2025,
+author = {Toraille, Loïc},
+license = {CC-BY-4.0},
+month = oct,
+title = {{WideNVMag}},
+url = {https://github.com/loictoraille/WideNVMag/tree/main},
+doi = {https://doi.org/10.5281/zenodo.17241419},
+version = {v1.2.0},
+year = {2025}
+}
+
 THIS CODE IS A WORK IN PROGRESS, IT IS NOT USER FRIENDLY. IF YOU HAVE ANY QUESTIONS PLEASE CONTACT ME.
 
 Use Matlab R2022a for the best compatibility (crucial if you use the piezo functionalities).
