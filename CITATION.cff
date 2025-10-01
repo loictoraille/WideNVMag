@@ -1,0 +1,27 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: WideNVMag
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Loïc
+    family-names: Toraille
+    email: loic.toraille@cea.fr
+    affiliation: >-
+      Université Paris-Saclay, CEA, Laboratoire Matière en
+      Conditions Extrêmes, 91680 Bruyères-le-Châtel, France
+    orcid: 'https://orcid.org/0000-0002-2416-8321'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.17241419
+repository-code: 'https://github.com/loictoraille/WideNVMag/tree/main'
+abstract: >-
+  Matlab interface code to acquire and treat widefield NV
+  centers data for NV magnetometry.
+license: CC-BY-4.0
+version: v1.2.0
+date-released: '2025-10-01'
