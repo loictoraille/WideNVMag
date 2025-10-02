@@ -3,13 +3,13 @@ function [PathOut] = getPath(choice)
 %Can also be used to directly retrieve the AcqESR path, the FitESR path, or the Param path
 
 PathOut = pwd;PathOut(strfind(PathOut,'\')) = '/';
-pos_ESRP = strfind(PathOut, 'Widefield_NV_Matlab');
+pos_ESRP = strfind(lower(PathOut), lower('Wide'));
 if isempty(pos_ESRP)
-    disp('Please revert the folder name to the default Widefield_NV_Matlab_version name')
+    disp('The folder name should at least include the word wide.')
     return
 else
     pos_slash = strfind(PathOut,'/');
-    new_pos_slash = pos_slash(pos_slash>pos_ESRP);
+    new_pos_slash = pos_slash(pos_slash>max(pos_ESRP));
 
     if isempty(new_pos_slash)
         endpos = length(PathOut)+1;
