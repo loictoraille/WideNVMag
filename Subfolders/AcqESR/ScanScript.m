@@ -96,7 +96,11 @@ UpdateStrSizeM(ROIWidth,ROIHeight,Ftot);
 
 if ~TestWithoutHardware && AutoAlignPiezo && i_scan > 1 && i_scan < TotalScan
     if panel.stop.Value~=1
-        PerformAlignPiezo;
+        if panel.LaserShutter.Value == 1
+            PerformAlignPiezo;
+        else
+            PerformAlignPiezoNoLaserShutter;
+        end
     end
 end
 

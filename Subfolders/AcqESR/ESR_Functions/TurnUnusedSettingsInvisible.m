@@ -8,7 +8,7 @@ load([getPath('Param') 'AcqParameters.mat'],'AcqParameters');
 if strcmpi(SetupType,"CEA") 
     ListUselessSettings = {};
 elseif strcmpi(SetupType,"ENS1")
-    ListUselessSettings = {shutterBetsa};    
+    ListUselessSettings = {'shutterBetsa'};    
 else
     ListUselessSettings = {'calibPiezoPanelTitle','calibPiezoPanel','calibPiezoXText','calibPiezoX','calibPiezoYText',...
         'calibPiezoY','calibPiezoZText','calibPiezoZ','ResetPiezo','shutterlaser','autofocuspiezo','shutterBetsa',...

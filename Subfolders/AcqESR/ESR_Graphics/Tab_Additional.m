@@ -47,6 +47,13 @@ uicontrol('Parent', tab_additional, 'Style', 'text', 'String', 'Autofocus z meth
 edit_SetupType = uicontrol('Parent', tab_additional, 'Style', 'edit', 'String', AcqParameters.AF_Method, 'units', 'normalized', 'Position', [0.13 0.35 0.05 0.025], 'FontSize', 12,'Tag','AF_Method','Callback',@UpdateAcqParam,'Tooltip',['Fulllist {BREN,CONT,GDER,GLLV,GRAE,GRAT,HELM,HISR,LAPD,LAPE,LAPV,SFRQ,TENG,TENV,' 10 'VOLA,WAVV,WAVR,ACMO,CURV,DCTE,DCTR,GLVA,GLVN,GRAS,HISE,LAPM,SFIL,WAVS}' 10 'CEA: DCTR works best but is slow, ENS: BREN works fast']);
 
 
+%% PerformAlignPiezo Method
+% Use laser shutter or not
+
+uicontrol('Parent', tab_additional, 'Style', 'checkbox', 'String', 'PerformAlignPiezo with Laser Shutter','units', 'normalized', 'tag','LaserShutter','Position', [0.05 0.2475 0.15 0.025], 'FontSize', 12, 'Value',AcqParameters.LaserShutter, 'HorizontalAlignment', 'left','Tooltip','Method is way better with laser shutter','Callback',@UpdateAcqParam);
+
+
+
 %% File Name Prefix Panel
 
 if strcmp(AcqParameters.FileNamePrefixChoice, 'Date+Base')
