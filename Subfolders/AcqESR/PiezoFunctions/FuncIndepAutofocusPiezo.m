@@ -63,7 +63,7 @@ if panel.stop.Value~=1
     end
 
     % for ifoc = 1:numel(foclist) % uncomment to test
-    %     figure;plot(Z_piez(:),FM_foc(ifoc,:));
+    %     figure;plot(Z_piez(:),FM_foc(ifoc,:));title('foclist{ifoc}');
     % end
 
     % figure;plot(Z_piez(:),FM); % uncomment to test

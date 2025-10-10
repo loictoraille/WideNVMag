@@ -11,5 +11,5 @@ C:\Users\ADM_TORAILLEL\Desktop\Working folder\
 CameraChoice (uEye, Peak, Andor, heliCam, Thorlabs)
 uEye
 
-SetupType (BASE, CEA, ENS, LIST, THALES, etc)
+SetupType (BASE, CEA, ENS1, ENS2, LIST, THALES, etc)
 CEA
