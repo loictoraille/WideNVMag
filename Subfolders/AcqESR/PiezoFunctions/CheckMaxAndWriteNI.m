@@ -1,4 +1,4 @@
-function CheckMaxAndWriteNI(X_value, Y_value, Z_value, L_value)
+function CheckMaxAndWriteNI(X_value, Y_value, Z_value, L_value, laser_value)
 global NI_card
 
 if exist('NI_card','var') && any(isprop(NI_card,'Running')) && ~isempty(daqlist)
@@ -24,7 +24,7 @@ if exist('NI_card','var') && any(isprop(NI_card,'Running')) && ~isempty(daqlist)
         Z_value = 10;
     end
 
-    write(NI_card,[X_value, Y_value, Z_value, L_value]);
+    write(NI_card,[X_value, Y_value, Z_value, L_value, laser_value]);
 
     pause(0.1);
 

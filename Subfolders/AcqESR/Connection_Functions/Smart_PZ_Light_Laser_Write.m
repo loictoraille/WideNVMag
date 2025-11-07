@@ -1,6 +1,7 @@
-function Tension4 = Smart_PZ_Light_Laser_Write(panel)
+function [Tension4, laser_value] = Smart_PZ_Light_Laser_Write(panel)
 % function that uses the NI card and the com port to control piezo, light and laser
 % optionally return Tension4, the fourth tension value of the NI card, for ease of use in PerformAlignPiezo sequence
+% same for laser_value, state of the laser shutter
 global SetupType
 
 load([getPath('Param') 'AcqParameters.mat']);
@@ -14,6 +15,12 @@ piezo_state = panel.switchpiezo.Value;
 light_state = panel.light.Value;
 laser_state = panel.shutterlaser.Value;
 
+if laser_state
+    laser_value = true;
+else
+    laser_value = false;
+end
+    
 if piezo_state
     piezo_X = X_value;piezo_Y = Y_value;piezo_Z = Z_value;
 else
@@ -21,27 +28,19 @@ else
 end
 
 if strcmpi(SetupType,"CEA")
-    if laser_state
-        piezo_4 = 5;
-    else
-        piezo_4 = 0;
-    end
-    CheckMaxAndWriteNI(piezo_X, piezo_Y, piezo_Z, piezo_4);
-    Tension4 = piezo_4;
+    analog4 = 0; % light is controlled via usb, no need for analog4
+    CheckMaxAndWriteNI(piezo_X, piezo_Y, piezo_Z, analog4, laser_value);
+    Tension4 = analog4;
 end
 
 if strcmpi(SetupType,"ENS1")
     if light_state
-        piezo_4 = Light_value;
+        analog4 = Light_value;
     else
-        piezo_4 = 0;
+        analog4 = 0;
     end
-    if laser_state
-        panel.shutterlaser.Value = 0;
-        panel.shutterlaser.ForegroundColor = [0,0,0];
-    end
-    CheckMaxAndWriteNI(piezo_X, piezo_Y, piezo_Z, piezo_4);
-    Tension4 = piezo_4;
+    CheckMaxAndWriteNI(piezo_X, piezo_Y, piezo_Z, analog4, laser_value);
+    Tension4 = analog4;
 end
 
 if strcmpi(SetupType,"CEA") && isfield(panel,'UserData') && isfield(panel.UserData,'Betsa')

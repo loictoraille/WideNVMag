@@ -26,7 +26,7 @@ RightZ = min([IniZ+PiezoRangeZ/2,10]);
 if panel.stop.Value~=1
 
     LightOn(panel); % turning light on for all piezo alignment procedures
-    Tension4 = LaserOff(panel); % the laser spot prevents perfect autofocus, especially if there is a shiny pressure gauge in the image
+    [Tension4, laser_value] = LaserOff(panel); % the laser spot prevents perfect autofocus, especially if there is a shiny pressure gauge in the image
 
 %% Loop on piezoZ
 
@@ -46,7 +46,7 @@ if panel.stop.Value~=1
                 disp(['Autofocus z in progress ' num2str(ind_prog) '/' num2str(PiezoStepZ)]);
             end
             NewZ = min([10,LeftZ + (k-1)*StepZ]);
-            CheckMaxAndWriteNI(IniX, IniY, NewZ, Tension4)
+            CheckMaxAndWriteNI(IniX, IniY, NewZ, Tension4, laser_value)
             if strcmp(CameraType,'Andor')
                 EndAcqCamera();
                 [I,ISize,AOI] = PrepareCamera();

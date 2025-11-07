@@ -96,7 +96,7 @@ UpdateStrSizeM(ROIWidth,ROIHeight,Ftot);
 
 if ~TestWithoutHardware && AutoAlignPiezo && i_scan > 1 && i_scan < TotalScan
     if panel.stop.Value~=1
-        if panel.LaserShutter.Value == 1
+        if panel.LaserShutter.Value == 1 %% check if laser shutter option is checked in tab additional
             PerformAlignPiezo;
         else
             PerformAlignPiezoNoLaserShutter;
@@ -180,9 +180,9 @@ if Read_Temp
     if ~TestWithoutHardware
         T_init=ReadTemp();
     else
-        T_init = rand(2,1);
+        T_init.Ta = rand(1);T_init.Tb = rand(1);T_init.Tc = rand(1);T_init.Td = rand(1);
     end
-    panel.Temp_txt.String  = sprintf(['Ta=' num2str(roundn(T_init(1),-2)) '\nTb=' num2str(roundn(T_init(2),-2))]); %T(Acc,1) to print Ta; T(Acc,2) to print Tb
+    panel.Temp_txt.String = CreateT_string(T);
 end
 
 tic
@@ -389,7 +389,7 @@ for Acc=1:(AccNumber+99*ALIGN*AccNumber) %Loop on Accumulation number
 
         if panel.stop.Value==1 % Check STOP button
             panel.stop.ForegroundColor = [0,0,1];
-            if ~panel.FinishSweep.Value
+            if ~panel.FinishSweep.Value && ~panel.FinishScan.Value
                 break;
             end
         end
@@ -397,12 +397,11 @@ for Acc=1:(AccNumber+99*ALIGN*AccNumber) %Loop on Accumulation number
     
     if Read_Temp
         if ~TestWithoutHardware
-            T(Acc,:)=ReadTemp();
+            T(Acc) = ReadTemp();
         else
-            T(Acc,:) = rand(2,1);
+            T(Acc).Ta = rand(1);T(Acc).Tb = rand(1);T(Acc).Tc = rand(1);T(Acc).Td = rand(1);
         end
-        panel.Temp_txt.String  = sprintf(['Ta=' num2str(roundn(T_init(1),-2)) '\nTb=' num2str(roundn(T_init(2),-2))]); %T(Acc,1) to print Ta; T(Acc,2) to print Tb
-        
+        panel.Temp_txt.String = CreateT_string(T);
     end
     
     if mod(Acc,BackupNSweeps) == 0     
@@ -435,7 +434,7 @@ for Acc=1:(AccNumber+99*ALIGN*AccNumber) %Loop on Accumulation number
     PixY=str2double(panel.PixY.String);%Read y_Pixel from GUI
     
     %%Plot Image (to see if image is moving)
-    if panel.stop.Value ~=1 
+    if panel.stop.Value ~=1 || (panel.stop.Value == 1 && panel.FinishScan.Value == 1)
         if  panel.DisplayLight.Value
             if AutoAlignCam ~= 1
                 LightOn(panel);
@@ -455,7 +454,7 @@ for Acc=1:(AccNumber+99*ALIGN*AccNumber) %Loop on Accumulation number
     guidata(gcbo,panel);
     PrintESR(panel,M);
     
-    if panel.stop.Value==1%Check STOP Button
+    if panel.stop.Value==1 && panel.FinishScan.Value~=1 %Check STOP Button
         break;
     end
     

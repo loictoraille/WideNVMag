@@ -50,7 +50,8 @@ if panel.stop.Value~=1
     %% Autocorrélation xy
     % Alignment procedure with light on laser off then laser spot correlation procedure with light on laser on
 
-    LightOn(panel); Tension4 = LaserOff(panel);
+    LightOn(panel); [Tension4, laser_value] = LaserOff(panel);
+
     [I,ISize,AOI] = PrepareCamera(); % need to prepare AFTER LightOn or LightOff, I don't know why
 
 %     figure;imagesc(Lum_Initial);axis('image');caxis([0 plotMaxLum]); % uncomment to test
@@ -82,9 +83,9 @@ if panel.stop.Value~=1
 
                 SendAOItoCAM(AOI_init.X+DeltaX_pix(i,j),AOI_init.Y+DeltaY_pix(i,j),AOI_init.Width,AOI_init.Height);
                 
-                Tension4 = LaserOff(panel);
+                [Tension4, laser_value] = LaserOff(panel);
                 [I,ISize,AOI] = PrepareCamera(); % need to prepare AFTER LightOn or LightOff, I don't know why
-                CheckMaxAndWriteNI(X_piez(i), Y_piez(j), Opt_Z, Tension4)
+                CheckMaxAndWriteNI(X_piez(i), Y_piez(j), Opt_Z, Tension4, laser_value);
 
                 %         if i == 3 && j == 3
                 %             disp('test');
@@ -94,9 +95,9 @@ if panel.stop.Value~=1
                 %         figure;imagesc(ImageCurrent);axis('image');caxis([0 plotMaxLum]); % uncomment to test
                 AlignmentXY_List{i,j}=ImageCurrent;
 
-                Tension4 = LaserOn(panel);
+                [Tension4, laser_value] = LaserOn(panel);
                 [I,ISize,AOI] = PrepareCamera(); % need to prepare AFTER LightOn or LightOff, I don't know why
-                CheckMaxAndWriteNI(X_piez(i), Y_piez(j), Opt_Z, Tension4)
+                CheckMaxAndWriteNI(X_piez(i), Y_piez(j), Opt_Z, Tension4, laser_value);
 
                 ImageCurrent = TakeCameraImage(ISize,AOI);
                 %         figure;imagesc(ImageCurrent);axis('image');caxis([0 plotMaxLum]); % uncomment to test
@@ -354,7 +355,7 @@ if panel.stop.Value~=1
     if panel.stop.Value~=1
         UpdateInputPiezo(Opt_X,Opt_Y,Opt_Z,AcqParameters.PiezoLight,panel); % stores the right piezo values
 
-        CheckMaxAndWriteNI(Opt_X, Opt_Y, Opt_Z, Tension4); % send new values to NI card
+        CheckMaxAndWriteNI(Opt_X, Opt_Y, Opt_Z, Tension4, laser_value); % send new values to NI card
 
         % found the best laser position, but the precision for the AOI is not as good as with using normxcorr2_general > now we redo the AOI without laser (better)
         % not sure about this part, think about it

@@ -24,23 +24,20 @@ if ~TestWithoutHardware
             addoutput(NI_card, daq_list.DeviceID(1), "ao1", "Voltage"); % Y
             addoutput(NI_card, daq_list.DeviceID(1), "ao2", "Voltage"); % Z
             addoutput(NI_card, daq_list.DeviceID(1), "ao3", "Voltage"); % light
+            addoutput(NI_card, daq_list.DeviceID(1), "Port1/Line3", "Digital"); % shutter laser
 
-            write(NI_card,[0, 0, 0, 0]); % initialisation à 0 V
+            write(NI_card,[0, 0, 0, 0, false]); % initialisation à 0 V
 
             panel.switchpiezo.String = 'Piezo ON';
             panel.switchpiezo.Value = 1;
             panel.switchpiezo.ForegroundColor = [0,0,1];
+            
+            panel.light.Value = 1;
+            panel.light.ForegroundColor = [0,0,1];
 
-            if strcmpi(SetupType,"ENS1")
-                panel.light.Value = 1;
-                panel.light.ForegroundColor = [0,0,1];
-            end
-
-            if strcmpi(SetupType,"CEA")
-                panel.shutterlaser.Value = 1;
-                panel.shutterlaser.ForegroundColor = [0,0,1];
-            end
-
+            panel.shutterlaser.Value = 1;
+            panel.shutterlaser.ForegroundColor = [0,0,1];
+          
             Smart_PZ_Light_Laser_Write(panel);
             disp('Piezo via NI_card connected successfully.')
         else

@@ -9,7 +9,7 @@ btnReset = src;
 panel = btnReset.Parent;
 ax_temp = findobj(panel.Parent, 'Type', 'axes');
 
-data = struct('time', [], 'Ta', [], 'Tb', []);
+data = struct('time', [], 'Ta', [], 'Tb', [], 'Tc', [], 'Td', []);
 ax_temp.UserData = data;
 UpdateTemperaturePlot(ax_temp);
 

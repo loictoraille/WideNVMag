@@ -2,8 +2,12 @@ function UpdateTemperaturePlot(ax_temp)
 
 tagA = findobj('tag','SensorA');
 tagB = findobj('tag','SensorB');
+tagC = findobj('tag','SensorC');
+tagD = findobj('tag','SensorD');
 tagA_Name = findobj('tag','SensorA_Name');
 tagB_Name = findobj('tag','SensorB_Name');
+tagC_Name = findobj('tag','SensorC_Name');
+tagD_Name = findobj('tag','SensorD_Name');
 
 % Récupérer les données stockées
 data = ax_temp.UserData;
@@ -24,6 +28,16 @@ if tagB.Value == 1
     hB = plot(ax_temp, data.time, data.Tb, '-o', 'LineWidth', 2, 'Color', 'r');
     plot_handles = [plot_handles, hB];
     legend_entries{end+1} = tagB_Name.String; % Add legend text
+end
+if tagC.Value == 1
+    hC = plot(ax_temp, data.time, data.Tc, '-o', 'LineWidth', 2, 'Color', 'g');
+    plot_handles = [plot_handles, hC];
+    legend_entries{end+1} = tagC_Name.String; % Add legend text
+end
+if tagD.Value == 1
+    hD = plot(ax_temp, data.time, data.Td, '-o', 'LineWidth', 2, 'Color', 'y');
+    plot_handles = [plot_handles, hD];
+    legend_entries{end+1} = tagD_Name.String; % Add legend text
 end
 hold(ax_temp, 'off');
 

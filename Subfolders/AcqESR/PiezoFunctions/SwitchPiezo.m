@@ -10,7 +10,7 @@ ResetPiezo = AcqParameters.ResetPiezo;
 if hpiezo.Value == 0
 
 if ResetPiezo && exist('NI_card','var') && any(isprop(NI_card,'Running')) && ~isempty(daqlist) && TestWithoutHardware~=1    
-    write(NI_card,[0, 0, 0, 0]); % sets values back to 0 V
+    write(NI_card,[0, 0, 0, 0, false]); % sets values back to 0 V
 end
     
 hpiezo.String = 'Piezo OFF';

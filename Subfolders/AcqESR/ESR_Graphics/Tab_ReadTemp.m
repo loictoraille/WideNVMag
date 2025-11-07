@@ -50,3 +50,20 @@ uicontrol('Parent',tab_readtemp,'Style', 'checkbox', 'String', 'Sensor B','units
 uicontrol('Parent', tab_readtemp, 'Style', 'edit', 'units', 'normalized', 'Position', [0.915 0.57 0.07 0.025], 'FontSize',...
     12, 'Tag', 'SensorB_Name', 'String', AcqParameters.SensorTempB_Name, 'Callback', @UpdateAcqParam);
 
+% --- Checkbox pour le capteur C ---
+uicontrol('Parent',tab_readtemp,'Style', 'checkbox', 'String', 'Sensor C','units','normalized','tag','SensorC',...
+    'Position', [0.93 0.45 0.05 0.025],'FontSize',10,'Value',AcqParameters.SensorTempC,'Callback',@UpdateAcqParam);
+
+% --- Case éditable pour le capteur C ---
+uicontrol('Parent', tab_readtemp, 'Style', 'edit', 'units', 'normalized', 'Position', [0.915 0.42 0.07 0.025], 'FontSize',...
+    12, 'Tag', 'SensorC_Name', 'String', AcqParameters.SensorTempC_Name, 'Callback', @UpdateAcqParam);
+
+% --- Checkbox pour le capteur D ---
+uicontrol('Parent',tab_readtemp,'Style', 'checkbox', 'String', 'Sensor D','units','normalized','tag','SensorD',...
+    'Position', [0.93 0.3 0.05 0.025],'FontSize',10,'Value',AcqParameters.SensorTempD,'Callback',@UpdateAcqParam);
+
+% --- Case éditable pour le capteur D ---
+uicontrol('Parent', tab_readtemp, 'Style', 'edit', 'units', 'normalized', 'Position', [0.915 0.27 0.07 0.025], 'FontSize',...
+    12, 'Tag', 'SensorD_Name', 'String', AcqParameters.SensorTempD_Name, 'Callback', @UpdateAcqParam);
+
+
