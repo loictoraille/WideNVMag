@@ -67,7 +67,10 @@ uicontrol('Parent',tab1,'Style','edit','tag','RefMWOff','FontSize',10,'units','n
     'Tooltip',['0: Standard mode' 10 '1: Divide by a single reference image taken at the start of each sweep' 10 '2: Divide by a reference image taken for each freq value' 10 'If mode 2 does not work, you probably go too fast for your MW generator, check its display']);
 
 uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'Finish sweep','units','normalized','tag','FinishSweep',...
-    'Position', [0.4295 0.887 0.065 0.025],'FontSize',10,'Value',AcqParameters.FinishSweep,'Callback',@UpdateAcqParam);
+    'Position', [0.4295 0.90 0.065 0.02],'FontSize',10,'Value',AcqParameters.FinishSweep,'Callback',@UpdateAcqParam);
+
+uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'Finish scan','units','normalized','tag','FinishScan',...
+    'Position', [0.4295 0.881 0.065 0.02],'FontSize',10,'Value',AcqParameters.FinishScan,'Callback',@UpdateAcqParam);
 
 uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'MW always ON','units','normalized','tag','RFAlwaysON',...
     'Position', [0.005 0.887 0.065 0.025],'FontSize',10,'Value',0,'Callback',@UpdateRF); %start on 0 to prevent wire burning

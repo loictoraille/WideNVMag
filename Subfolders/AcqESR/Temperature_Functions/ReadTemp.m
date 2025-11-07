@@ -2,9 +2,16 @@ function T=ReadTemp()
 
 panel = guidata(gcf);
 
+measA = panel.SensorA.Value;
+measB = panel.SensorB.Value;
+measC = panel.SensorC.Value;
+measD = panel.SensorD.Value;
+
 if isfield(panel,'UserData') && isfield(panel.UserData,'Lakeshore')
     Lakeshore = panel.UserData.Lakeshore;
     flush(Lakeshore);
+
+    if measA
 
     ReadTempA='KRDG?A';
     writeline(Lakeshore, ReadTempA);
@@ -13,35 +20,59 @@ if isfield(panel,'UserData') && isfield(panel.UserData,'Lakeshore')
     Ta = readline(Lakeshore);
     pause(0.01)
 
-    % INTYPEB='INTYPE B,1,0,0,0,1'; % INTYPEB='INTYPE B,4,0,0,1,1';%
-    % writeline(Lakeshore,INTYPEB);
-    % pause(0.5);
-    % INCRVB='INCRV B,2'; %INCRVB='INCRV B,13';%
-    % writeline(Lakeshore,INCRVB);
-    % pause(0.5);
-    % ReadTempB='KRDG?B';
-    % writeline(Lakeshore,ReadTempB);
-    % Tbdiode=readline(Lakeshore);
-    %
-    % INTYPEB='INTYPE B,4,0,0,1,1';
-    % writeline(Lakeshore,INTYPEB);
-    % pause(0.5);
-    % INCRVB='INCRV B,13';%
-    % writeline(Lakeshore,INCRVB);
-    % pause(2);
+    else
+        Ta = NaN;
+    end
+
+    if measB
 
     ReadTempB='KRDG?B';
     writeline(Lakeshore,ReadTempB);
-    Tbthermocouple=readline(Lakeshore);
+    Tb=readline(Lakeshore);
     writeline(Lakeshore,ReadTempB);
-    Tbthermocouple=readline(Lakeshore);% dummy because first one sometimes doesn't work
+    Tb=readline(Lakeshore);% dummy because first one sometimes doesn't work
     pause(0.01)
 
+    else
+        Tb = NaN;
+    end
 
-    T=[str2double(Ta),str2double(Tbthermocouple)];
+    if measC
+
+    ReadTempC='KRDG?C';
+    writeline(Lakeshore,ReadTempC);
+    Tc=readline(Lakeshore);
+    writeline(Lakeshore,ReadTempC);
+    Tc=readline(Lakeshore);% dummy because first one sometimes doesn't work
+    pause(0.01)
+
+    else
+        Tc = NaN;
+    end
+
+    if measD
+
+    ReadTempD='KRDG?D';
+    writeline(Lakeshore,ReadTempD);
+    Td=readline(Lakeshore);
+    writeline(Lakeshore,ReadTempD);
+    Td=readline(Lakeshore);% dummy because first one sometimes doesn't work
+    pause(0.01)
+
+    else
+        Td = NaN;
+    end
+
+    T.Ta=str2double(Ta);
+    T.Tb=str2double(Tb);
+    T.Tc=str2double(Tc);
+    T.Td=str2double(Td);
 
 else
-    T = [NaN,NaN];
+    T.Ta = NaN;
+    T.Tb = NaN;
+    T.Tc = NaN;
+    T.Td = NaN;
 end
 
 end

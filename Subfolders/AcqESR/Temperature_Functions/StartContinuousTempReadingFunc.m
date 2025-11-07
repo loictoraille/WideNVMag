@@ -22,16 +22,18 @@ disp(['Start of continuous temperature reading every ' num2str(period_sec) ' sec
 if isprop(ax_temp,'UserData') && ~isempty(ax_temp.UserData)
     data = ax_temp.UserData;
 else
-    data = struct('time', [], 'Ta', [], 'Tb', []);
+    data = struct('time', [], 'Ta', [], 'Tb', [], 'Tc', [], 'Td', []);
 end
 
 % Démarrer la première acquisition immédiatement
 T = ReadTemp();
-Ta = T(1); Tb = T(2);
+Ta = T.Ta; Tb = T.Tb;Tc = T.Tc;Td = T.Td;
 
 data.time = [data.time, now];
 data.Ta = [data.Ta, Ta];
 data.Tb = [data.Tb, Tb];
+data.Tc = [data.Tc, Tc];
+data.Td = [data.Td, Td];
 
 ax_temp.UserData = data;
 UpdateTemperaturePlot(ax_temp);

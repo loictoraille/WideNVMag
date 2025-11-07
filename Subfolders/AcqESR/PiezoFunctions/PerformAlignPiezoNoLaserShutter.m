@@ -77,7 +77,7 @@ if panel.stop.Value~=1
                     [I,ISize,AOI] = PrepareCamera();
                 end
             end
-            CheckMaxAndWriteNI(NewX, NewY, Opt_Z, AcqParameters.PiezoLight)
+            CheckMaxAndWriteNI(NewX, NewY, Opt_Z, AcqParameters.PiezoLight, false);
 
             ImageCurrent = TakeCameraImage(ISize,AOI);
             % figure;imagesc(ImageCurrent);
@@ -119,7 +119,7 @@ if panel.stop.Value~=1
     %% Résulats finaux, image, et éteignage de la lampe
 
     UpdateInputPiezo(Opt_X,Opt_Y,Opt_Z,AcqParameters.PiezoLight);
-    CheckMaxAndWriteNI(Opt_X, Opt_Y, Opt_Z, AcqParameters.PiezoLight);
+    CheckMaxAndWriteNI(Opt_X, Opt_Y, Opt_Z, AcqParameters.PiezoLight, false);
 
     Lum_Post_AutoCorr = TakeCameraImage(ISize,AOI);
 
@@ -128,7 +128,7 @@ if panel.stop.Value~=1
     set(ax_lum_post_autocorr,'Tag','ax_lum_post_autocorr'); % Necessary to rewrite tag of axes after imagesc (I don't know why)
     title(ax_lum_post_autocorr, 'New image post autocorrelation');
 
-    CheckMaxAndWriteNI(Opt_X, Opt_Y, Opt_Z, 0);
+    CheckMaxAndWriteNI(Opt_X, Opt_Y, Opt_Z, 0, false);
 
     fit_xy_successful = [];ssimValue_trans = [];
 

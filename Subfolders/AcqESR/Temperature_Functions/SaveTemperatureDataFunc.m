@@ -37,8 +37,8 @@ disp(['Graph saved to ', img_filepath]);
 
 % Sauvegarde des données en ASCII
 data_filepath = strrep(img_filepath, '.png', '.txt'); % Même nom mais en .txt
-header =  "Time (min)\tTa (K)\tTb (K)\n";
-data_matrix  = [time_min(:),data.Ta(:),data.Tb(:)];
+header =  "Time (min)\tTa (K)\tTb (K)\tTc (K)\tTd (K)\n";
+data_matrix  = [time_min(:),data.Ta(:),data.Tb(:),data.Tc(:),data.Td(:)];
 
 fid = fopen(data_filepath, 'w');
 fprintf(fid, header);

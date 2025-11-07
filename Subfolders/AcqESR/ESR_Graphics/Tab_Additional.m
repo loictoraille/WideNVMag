@@ -44,7 +44,7 @@ uicontrol('Parent', cpanel_com, 'Style', 'pushbutton', 'String', 'Test', 'units'
 % Autofocus method used by the piezo z align 
 
 uicontrol('Parent', tab_additional, 'Style', 'text', 'String', 'Autofocus z method','units', 'normalized', 'Position', [0.05 0.3475 0.08 0.025], 'FontSize', 12, 'HorizontalAlignment', 'left');
-edit_SetupType = uicontrol('Parent', tab_additional, 'Style', 'edit', 'String', AcqParameters.AF_Method, 'units', 'normalized', 'Position', [0.13 0.35 0.05 0.025], 'FontSize', 12,'Tag','AF_Method','Callback',@UpdateAcqParam,'Tooltip',['Fulllist {BREN,CONT,GDER,GLLV,GRAE,GRAT,HELM,HISR,LAPD,LAPE,LAPV,SFRQ,TENG,TENV,' 10 'VOLA,WAVV,WAVR,ACMO,CURV,DCTE,DCTR,GLVA,GLVN,GRAS,HISE,LAPM,SFIL,WAVS}' 10 'CEA: DCTR works best but is slow, ENS: BREN works fast']);
+uicontrol('Parent', tab_additional, 'Style', 'edit', 'String', AcqParameters.AF_Method, 'units', 'normalized', 'Position', [0.13 0.35 0.05 0.025], 'FontSize', 12,'Tag','AF_Method','Callback',@UpdateAcqParam,'Tooltip',['Fulllist {BREN,CONT,GDER,GLLV,GRAE,GRAT,HELM,HISR,LAPD,LAPE,LAPV,SFRQ,TENG,TENV,' 10 'VOLA,WAVV,WAVR,ACMO,CURV,DCTE,DCTR,GLVA,GLVN,GRAS,HISE,LAPM,SFIL,WAVS}' 10 'CEA: DCTR works best but is slow, ENS: BREN works fast']);
 
 
 %% PerformAlignPiezo Method
@@ -105,3 +105,32 @@ uicontrol('Parent', cpanel_filename, 'Style', 'edit', 'String', AcqParameters.Fi
 nomSave = NameGen(AcqParameters.Data_Path,IniFileNamePrefix,AcqParameters.Save);
 tag_FileName = findobj('tag','nameFile');
 set(tag_FileName,'String',['File: ' nomSave]);
+
+%% Setup Type Panel
+
+% Création du panneau principal (plus compact)
+cpanel_setuptype = uipanel('Parent', tab_additional, 'Title', 'Setup Type', 'FontSize', 14, ...
+    'Position', [0.35 0.15 0.3 0.18]);  % Hauteur réduite de 0.25 → 0.18
+
+% Ligne d'instruction (non grasse)
+uicontrol('Parent', cpanel_setuptype, 'Style', 'text', ...
+    'String', 'Enter setup type in the config file', ...
+    'units', 'normalized', 'FontSize', 11, 'HorizontalAlignment', 'left', ...
+    'Position', [0.05 0.75 0.9 0.15]);
+
+% Ligne affichant "Setup type:" + valeur actuelle (en gras)
+uicontrol('Parent', cpanel_setuptype, 'Style', 'text', ...
+    'String', ['Setup type: ' SetupType], ...
+    'units', 'normalized', 'FontSize', 12, 'HorizontalAlignment', 'left', 'FontWeight', 'bold', ...
+    'Position', [0.05 0.58 0.9 0.15]);
+
+% Texte explicatif aligné (espacements pour pseudo-tabulation)
+setup_info = sprintf(['- CEA    Lakeshore, Piezo, laser shutter, light with Betsa controller\n' ...
+                      '- ENS1   Lakeshore, Piezo, laser shutter, light with NI\n' ...
+                      '- BASE   No Lakeshore, no piezo, no laser shutter, no light']);
+
+uicontrol('Parent', cpanel_setuptype, 'Style', 'text', ...
+    'String', setup_info, ...
+    'units', 'normalized', 'FontSize', 11, ...
+    'HorizontalAlignment', 'left', 'Position', [0.05 0.05 0.9 0.5]);
+

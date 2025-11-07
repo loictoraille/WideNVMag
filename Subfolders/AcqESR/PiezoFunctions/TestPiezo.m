@@ -10,13 +10,15 @@ addoutput(NI_card, daq_list.DeviceID(1), "ao0", "Voltage"); % X
 addoutput(NI_card, daq_list.DeviceID(1), "ao1", "Voltage"); % Y
 addoutput(NI_card, daq_list.DeviceID(1), "ao2", "Voltage"); % Z
 addoutput(NI_card, daq_list.DeviceID(1), "ao3", "Voltage"); % light
+addoutput(NI_card, daq_list.DeviceID(1), "Port1/Line3", "Digital"); % shutter laser
 
 X_value = 0;
 Y_value = 0;
 Z_value = 0;
 Light_value = 0;
+laser_state = true;
 
-CheckMaxAndSendToNI(NI_card,X_value, Y_value, Z_value, Light_value); % initialisation à 0 V
+CheckMaxAndSendToNI(NI_card,X_value, Y_value, Z_value, Light_value, laser_state); % initialisation à 0 V
 
 % User_designed function
 
@@ -36,12 +38,12 @@ CheckMaxAndSendToNI(NI_card,X_value, Y_value, Z_value, Light_value); % initialis
 while 0==0
     while Y_value > -10
         Y_value = Y_value - 1;
-        CheckMaxAndSendToNI(NI_card,X_value, Y_value, Z_value, Light_value); % initialisation à 0 V
+        CheckMaxAndSendToNI(NI_card,X_value, Y_value, Z_value, Light_value, laser_state); % initialisation à 0 V
         pause(0.05);
     end
     while Y_value < 10
         Y_value = Y_value + 1;
-        CheckMaxAndSendToNI(NI_card,X_value, Y_value, Z_value, Light_value); % initialisation à 0 V
+        CheckMaxAndSendToNI(NI_card,X_value, Y_value, Z_value, Light_value, laser_state); % initialisation à 0 V
         pause(0.05);
     end
 end    
@@ -49,15 +51,15 @@ end
 %%
 
 
-CheckMaxAndSendToNI(NI_card,0, 0, 0, 0); % initialisation à 0 V
+CheckMaxAndSendToNI(NI_card,0, 0, 0, 0, false); % initialisation à 0 V
 
 %%
 
-CheckMaxAndSendToNI(NI_card,1, 2, 3, 5); % Test
+CheckMaxAndSendToNI(NI_card,1, 2, 3, 5, true); % Test
 
 %%
 
-function CheckMaxAndSendToNI(NI_card,X_value, Y_value, Z_value, L_value)
+function CheckMaxAndSendToNI(NI_card,X_value, Y_value, Z_value, L_value, laser_state)
 
 if X_value < -10
     X_value = -10;
@@ -80,6 +82,6 @@ if Z_value > 10
     Z_value = 10;
 end
 
-write(NI_card,[X_value, Y_value, Z_value, L_value]);
+write(NI_card,[X_value, Y_value, Z_value, L_value, laser_state]);
     
 end
