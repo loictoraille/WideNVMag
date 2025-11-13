@@ -3,8 +3,6 @@ global NI_card SetupType TestWithoutHardware
 
 if ~TestWithoutHardware
 
-    load([getPath('Param') 'AcqParameters.mat']);
-
     if strcmpi(SetupType,"CEA") || strcmpi(SetupType,"ENS1")
 
         try
@@ -18,13 +16,24 @@ if ~TestWithoutHardware
         end
         %     dq.Rate = 8000; % pour changer le rate, à tester
 
+
         if exist('NI_card','var') && any(isprop(NI_card,'Running')) && ~isempty(daqlist)
 
             addoutput(NI_card, daq_list.DeviceID(1), "ao0", "Voltage"); % X
             addoutput(NI_card, daq_list.DeviceID(1), "ao1", "Voltage"); % Y
             addoutput(NI_card, daq_list.DeviceID(1), "ao2", "Voltage"); % Z
             addoutput(NI_card, daq_list.DeviceID(1), "ao3", "Voltage"); % light
-            addoutput(NI_card, daq_list.DeviceID(1), "Port1/Line3", "Digital"); % shutter laser
+
+            % laser shutter
+
+            LaserShutterPort = panel.LaserShutterPort.String;
+            vals = sscanf(LaserShutterPort, '%d.%d');  
+            port = vals(1);line = vals(2);
+            lineName = sprintf("Port%d/Line%d", port, line);
+
+            addoutput(NI_card, daq_list.DeviceID(1), lineName, "Digital");
+
+            %
 
             write(NI_card,[0, 0, 0, 0, false]); % initialisation à 0 V
 
