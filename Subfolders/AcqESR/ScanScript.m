@@ -178,11 +178,11 @@ end
 T=[];
 if Read_Temp
     if ~TestWithoutHardware
-        T_init=ReadTemp();
+        T_init{1}=ReadTemp();
     else
-        T_init.Ta = rand(1);T_init.Tb = rand(1);T_init.Tc = rand(1);T_init.Td = rand(1);
+        T_init{1}.Ta = rand(1);T_init{1}.Tb = rand(1);T_init{1}.Tc = rand(1);T_init{1}.Td = rand(1);
     end
-    panel.Temp_txt.String = CreateT_string(T);
+    panel.Temp_txt.String = CreateT_string(T_init);
 end
 
 tic
@@ -397,9 +397,9 @@ for Acc=1:(AccNumber+99*ALIGN*AccNumber) %Loop on Accumulation number
     
     if Read_Temp
         if ~TestWithoutHardware
-            T(Acc) = ReadTemp();
+            T{Acc} = ReadTemp();
         else
-            T(Acc).Ta = rand(1);T(Acc).Tb = rand(1);T(Acc).Tc = rand(1);T(Acc).Td = rand(1);
+            T{Acc}.Ta = rand(1);T{Acc}.Tb = rand(1);T{Acc}.Tc = rand(1);T{Acc}.Td = rand(1);
         end
         panel.Temp_txt.String = CreateT_string(T);
     end

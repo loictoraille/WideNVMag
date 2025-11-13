@@ -46,6 +46,12 @@ uicontrol('Parent', cpanel_com, 'Style', 'pushbutton', 'String', 'Test', 'units'
 uicontrol('Parent', tab_additional, 'Style', 'text', 'String', 'Autofocus z method','units', 'normalized', 'Position', [0.05 0.3475 0.08 0.025], 'FontSize', 12, 'HorizontalAlignment', 'left');
 uicontrol('Parent', tab_additional, 'Style', 'edit', 'String', AcqParameters.AF_Method, 'units', 'normalized', 'Position', [0.13 0.35 0.05 0.025], 'FontSize', 12,'Tag','AF_Method','Callback',@UpdateAcqParam,'Tooltip',['Fulllist {BREN,CONT,GDER,GLLV,GRAE,GRAT,HELM,HISR,LAPD,LAPE,LAPV,SFRQ,TENG,TENV,' 10 'VOLA,WAVV,WAVR,ACMO,CURV,DCTE,DCTR,GLVA,GLVN,GRAS,HISE,LAPM,SFIL,WAVS}' 10 'CEA: DCTR works best but is slow, ENS: BREN works fast']);
 
+%% Laser Shutter NI port
+% Choice of NI port for laser shutter 
+
+uicontrol('Parent', tab_additional, 'Style', 'text', 'String', 'Laser shutter NI port','units', 'normalized', 'Position', [0.05 0.3775 0.08 0.025], 'FontSize', 12, 'HorizontalAlignment', 'left');
+uicontrol('Parent', tab_additional, 'Style', 'edit', 'String', AcqParameters.LaserShutterPort, 'units', 'normalized', 'Position', [0.13 0.38 0.05 0.025], 'FontSize', 12,'Tag','LaserShutterPort','Callback',@UpdateAcqParam,'Tooltip','Probably 1.3 for CEA and 2.4 for ENS1');
+
 
 %% PerformAlignPiezo Method
 % Use laser shutter or not
