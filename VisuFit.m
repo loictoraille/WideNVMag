@@ -3,7 +3,8 @@ clearvars; clear global
 addpath(genpath('Subfolders'));addpath(genpath(getPath('Main')));
 
 %% 
-DataPath = 'C:\Users\Raman\Documents\Data_NV\';
+
+[~,~, DataPath, ~] = readConfigFile('Config.txt');
 
 %% Visualize fit results from a FitESR treated data file
 

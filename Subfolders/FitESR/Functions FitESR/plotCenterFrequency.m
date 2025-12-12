@@ -213,6 +213,23 @@ elseif NumComp == 1 && FitMethod == 1
     caxis([FMmin,FMmax]);
     c = colorbar;
     c.FontSize = 10.5;
+
+
+elseif NumComp == 1 && FitMethod == 5
+
+    FM = FitTot(:,:,4);
+    fig = figure('Name',[fname '-CenterFreq'],'Position',[300,100,1350,750]);
+    imagesc(x_axis,y_axis,FM);
+    title({'Center Frequency (MHz)';''});
+    axis('image');
+    ax = gca;
+    ax.XAxisLocation = 'bottom';
+    ax.TickDir = 'out';
+    xlabel(xlabel_str);
+    ylabel(ylabel_str);
+    caxis([2990,2996]);
+    c = colorbar;
+    c.FontSize = 10.5;
     
 elseif NumComp == 0.5 && FitMethod == 1
 
