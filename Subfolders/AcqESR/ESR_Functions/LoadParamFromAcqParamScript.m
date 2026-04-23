@@ -10,6 +10,8 @@ RefMWOff = AcqParameters.RefMWOff;
 RFAlwaysON = AcqParameters.RFAlwaysON;
 AF = AcqParameters.AF;
 AF_NumberSweeps = AcqParameters.AF_NumberSweeps;
+AF_Scan = AcqParameters.AF_Scan;
+AF_NumberScan = AcqParameters.AF_NumberScan;
 
 CenterF_GHz = AcqParameters.FCenter;
 Width_MHz = AcqParameters.FSpan;
@@ -26,3 +28,6 @@ SaveMode = AcqParameters.SaveMode;
 MaxLum = AcqParameters.MaxLum;
 
 TotalScan = AcqParameters.RepeatScan;
+
+MagSweep = AcqParameters.MagSweep;
+BSweepMax = AcqParameters.BSweepMax;

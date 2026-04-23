@@ -12,7 +12,7 @@ if exist('handleImage','var') && ~isempty(handleImage)
     if exist('LumToPlot','var')
 
         MaxLumVal = round(max(max(LumToPlot)));
-        MaxLum = round(1.05*MaxLumVal);
+        MaxLum = max(1,round(1.05*MaxLumVal));
         panel.MaxLum.String = num2str(MaxLum);
         panel.MaxLumLive.String = num2str(MaxLum);
         UpdateAcqParam();

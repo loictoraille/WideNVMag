@@ -47,10 +47,10 @@ save(DataSaveName, 'Image','-ascii');
 %% Fit ESR at a specific location
 %Set up parameters in FitParameters.mat
 PlotpStart = 1; 
-% if UsePstart == 0;PlotpStart = 0; end
+if UsePstart == 0;PlotpStart = 0; end
 
-ix = round(wcrop/2);iy = round(hcrop/2); % in pixels   
-% ix = 30; iy = 25;
+% ix = round(wcrop/2);iy = round(hcrop/2); % in pixels   
+ix = 350; iy = 482;
 [spectre, BinOut] = extractEsrThr(ESRMatrix, ix+x_start-1, iy+y_start-1, BinThr);
 spectre = PerformTreatmentOperations(spectre, v_MHz, Smoothing_Factor, Detrending_Factor, ClearFFT, RemPositive);
 
@@ -138,7 +138,7 @@ secondAxis = 1; %creates second axis with real luminescence on the right
 withTitle = 1; %removes title for graphic reasons
 FigureSize = 0.85; % choose small size for big text when saving
 
-ix = 33; iy = 32;
+ix = 350; iy = 482;
 % ix = round(wcrop/2);iy = round(hcrop/2); % in pixels 
 
 [spectre, BinOut] = extractEsrThr(ESRMatrix, ix+x_start-1, iy+y_start-1, BinThr);

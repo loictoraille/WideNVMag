@@ -123,14 +123,14 @@ pixelclock_input=uicontrol('Parent',tab2,'Style','edit','tag','Input_PixelClock'
 %% Piezo control
 uicontrol('Parent', tab2, 'Style', 'text', 'units', 'normalized', ...
     'FontSize', 16, 'FontWeight', 'bold', 'HorizontalAlignment', 'left', ...
-    'Position', [0.593 0.77 0.1 0.03], 'String', 'Piezo Control', 'tag', 'PiezoControlText');
+    'Position', [0.593 0.72 0.1 0.03], 'String', 'Piezo Control', 'tag', 'PiezoControlText');
 
-panelpiezo = uipanel('Parent', tab2, 'Position', [0.58, 0.57, 0.1, 0.2], 'tag', 'PiezoControlPanel');
+panelpiezo = uipanel('Parent', tab2, 'Position', [0.58, 0.52, 0.1, 0.2], 'tag', 'PiezoControlPanel');
 
 uicontrol('Parent', panelpiezo, 'Style', 'togglebutton', 'tag', 'switchpiezo', ...
     'ForegroundColor', [0, 0, 0], 'Value', 0, 'String', 'Init Piezo', ...
     'FontSize', 12, 'units', 'normalized', ...
-    'Tooltip', 'Switch between zero-values and user-defined values, only if the reset values option is ticked', ...
+    'Tooltip', 'Connects to NI_DAQ and switches between zero-values and user-defined values, only if the reset values option is ticked', ...
     'Position', [0.1, 0.86, 0.8, 0.14], 'Callback', @SwitchPiezo);
 
 FS2 = 11;
@@ -187,15 +187,15 @@ uicontrol('Parent', panelpiezo, 'Style', 'edit', 'FontSize', FS2, 'units', 'norm
     'Position', PositionRow3 + [0.64, 0, 0, 0], 'tag', 'piezoStepZ', 'String', num2str(AcqParameters.PiezoStepZ), 'Callback', @UpdateAcqParam);
 
 %% Calib Piezo
-calibPanelTitle = uicontrol('Parent',tab2,'Style','text','units','normalized','FontSize',16,'FontWeight','bold','HorizontalAlignment','left','Position', [0.593 0.51 0.1 0.03],'String','Calib (um/10V)','tag','calibPiezoPanelTitle');
-calibPanel = uipanel('Parent',tab2,'Position',[0.61, 0.41, 0.05, 0.1],'tag','calibPiezoPanel');
+calibPanelTitle = uicontrol('Parent',tab2,'Style','text','units','normalized','FontSize',16,'FontWeight','bold','HorizontalAlignment','left','Position', [0.593 0.48 0.1 0.03],'String','Calib (um/10V)','tag','calibPiezoPanelTitle');
+calibPanel = uipanel('Parent',tab2,'Position',[0.61, 0.38, 0.05, 0.1],'tag','calibPiezoPanel');
 
 % Define font size
 FS2 = 11;
 
 % Define positions for text and edit boxes
-calibTextPosition = [0, 0.63, 0.3, 0.3];
-calibEditPosition = [0.3, 0.67, 0.5, 0.3];
+calibTextPosition = [0, 0.6, 0.3, 0.3];
+calibEditPosition = [0.3, 0.64, 0.5, 0.3];
 
 % X Row
 uicontrol('Parent',calibPanel, 'Style', 'text','FontSize',12,'units','normalized','FontSize',FS2, 'String', 'X', 'Position', calibTextPosition,'tag','calibPiezoXText');
@@ -209,7 +209,7 @@ uicontrol('Parent',calibPanel, 'Style', 'edit','FontSize',12,'units','normalized
 uicontrol('Parent',calibPanel, 'Style', 'text','FontSize',12,'units','normalized','FontSize',FS2, 'String', 'Z', 'Position', calibTextPosition - [0, 0.6, 0, 0],'tag','calibPiezoZText');
 uicontrol('Parent',calibPanel, 'Style', 'edit','FontSize',12,'units','normalized','FontSize',FS2, 'Position', calibEditPosition - [0, 0.6, 0, 0], 'tag','calibPiezoZ', 'String',num2str(AcqParameters.CalibPiezoZ),'Callback',@UpdateAcqParam);
 
-uicontrol('Parent',tab2,'Style', 'checkbox', 'String', 'Reset values upon exit','units','normalized','tag','ResetPiezo','Position', [0.586 0.38 0.1 0.025],'FontSize',11,'Value',AcqParameters.ResetPiezo,'Callback',@UpdateAcqParam,'TooltipString','Reset all four NI card outputs to 0V when closing the program window');
+uicontrol('Parent',tab2,'Style', 'checkbox', 'String', 'Reset values upon exit','units','normalized','tag','ResetPiezo','Position', [0.586 0.35 0.1 0.025],'FontSize',11,'Value',AcqParameters.ResetPiezo,'Callback',@UpdateAcqParam,'TooltipString','Reset all four NI card outputs to 0V when closing the program window');
 
 %% Text
 
@@ -232,7 +232,7 @@ uicontrol('Parent', tab2, 'Style', 'togglebutton','tag','shutterlaser','Foregrou
 %% Autofocus Piezo
 
 uicontrol('Parent', tab2, 'Style', 'togglebutton','tag','autofocuspiezo','ForegroundColor',[0,0,0],'Value',0, 'String', 'Autofocus piezo z', 'FontSize',14,'units','normalized',...
-'Tooltip','Starts the autofocus piezo z procedure, if piezo are connected','Position', [0.58, 0.31, 0.1, 0.04], 'Callback', @AutofocusPiezo);
+'Tooltip','Starts the autofocus piezo z procedure, if piezo are connected','Position', [0.58, 0.29, 0.1, 0.04], 'Callback', @AutofocusPiezo);
 
 %% Shutter Raman Betsa
 
@@ -241,10 +241,9 @@ uicontrol('Parent', tab2, 'Style', 'togglebutton','tag','shutterBetsa','Foregrou
 
 %% MaxLum
 
-uicontrol('Parent',tab2,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','center','Position',[0.81 0.127 0.035 0.025],'String','MaxLum');
-uicontrol('Parent',tab2,'Style','edit','tag','MaxLumLive','FontSize',10,'units','normalized','Position',[0.85 0.13 0.035 0.025],'String',num2str(AcqParameters.MaxLum),'Callback',@UpdateMaxLumLive,...
+uicontrol('Parent',tab2,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','center','Position',[0.575 0.765 0.035 0.025],'String','MaxLum');
+uicontrol('Parent',tab2,'Style','edit','tag','MaxLumLive','FontSize',10,'units','normalized','Position',[0.61 0.77 0.03 0.025],'String',num2str(AcqParameters.MaxLum),'Callback',@UpdateMaxLumLive,...
     'Tooltip',['To modify maximum display value of camera' 10 'Peak and uEye saturate at 4095' 10 'Andor saturates at 65535' 10 'Heliotis saturates at ??']);
-
 uicontrol('Parent',tab2,'Style', 'pushbutton', 'String', 'Auto','units','normalized','tag','autoMaxLumLive',...
-    'Position', [0.9 0.13 0.035 0.025],'FontSize',10,'Callback',@AutoMaxLumLive,'Tooltip','Auto sets the MaxLum value to 1.05 times the max value observed');
+    'Position', [0.65 0.77 0.035 0.025],'FontSize',10,'Callback',@AutoMaxLumLive,'Tooltip','Auto sets the MaxLum value to 1.05 times the max value observed');
 

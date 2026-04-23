@@ -77,6 +77,11 @@ if TestWithoutHardware~=1 && ~isempty(panel) && isfield(panel,'UserData') && isf
     clear Betsa
 end
 
+if TestWithoutHardware~=1 && isfield(panel,'UserData') && isfield(panel.UserData,'MCC')
+    MCC = panel.UserData.MCC;
+    write(MCC,[0 0 0 0]);
+end
+
 clear global
 
 if isvalid(hobject) % Ensure the figure handle is still valid

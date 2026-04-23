@@ -14,10 +14,10 @@ end
 %%%%%%%%
 %%Acquisition parameters
 %%%%%%%%
-cpanel1=uipanel('Parent',tab1,'Position',[0.075 0.88 0.145 0.12]);
-cpanel2=uipanel('Parent',tab1,'Position',[0.22 0.88 0.202 0.12]);
+cpanel1=uipanel('Parent',tab1,'Position',[0.075 0.86 0.145 0.14]);
+cpanel2=uipanel('Parent',tab1,'Position',[0.22 0.86 0.202 0.14]);
 uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'Save','units','normalized','tag','Save',...
-    'Position', [0.076 0.883 0.07 0.025],'FontSize',10,'Value',AcqParameters.Save,'Callback',@UpdateAcqParam);
+    'Position', [0.076 0.863 0.07 0.025],'FontSize',10,'Value',AcqParameters.Save,'Callback',@UpdateAcqParam);
 uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'AutoAlignPiezo','units','normalized','tag','AutoAlignPiezo',...
     'Position', [0.076 0.973 0.07 0.025],'FontSize',10,'Value',AcqParameters.AutoAlignPiezo,'Callback',@UpdateAlignPiezo,'Tooltip',['Used to realign the laser on the sample between multiple scans' newline 'Prerequisite: a steering mirror to pilot the laser']);
 uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'RefreshMode','units','normalized','tag','RefreshMode',...
@@ -27,14 +27,18 @@ uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'ReadTemp','units','norma
 uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'AutoAlignCam','units','normalized','tag','AutoAlignCam',...
     'Position', [0.15 0.973 0.066 0.025],'FontSize',10,'Value',AcqParameters.AutoAlignCam,'Callback',@UpdateAcqParam,'Tooltip','Perfoms an autocorrelation between each sweep and adjusts the camera ROI to track the sample');
 uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'DelEx','units','normalized','tag','DelEx',...
-    'Position', [0.15 0.883 0.065 0.025],'FontSize',10,'Value',AcqParameters.DelEx,'Tooltip','Deletes first and last frequency points before plotting and saving file','Callback',@UpdateAcqParam);
+    'Position', [0.15 0.863 0.065 0.025],'FontSize',10,'Value',AcqParameters.DelEx,'Tooltip','Deletes first and last frequency points before plotting and saving file','Callback',@UpdateAcqParam);
 
-uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'Autofocus every','units','normalized','tag','AF','Position', [0.076 0.913 0.065 0.025],'FontSize',10,'Value',AcqParameters.AF,'Tooltip','Autofocus piezo Z every X sweeps during a scan','Callback',@UpdateAcqParam);
-uicontrol('Parent',tab1,'Style','edit','tag','AF_NumberSweeps','FontSize',10,'units','normalized','Position',[0.140 0.913 0.02 0.025],'String',num2str(AcqParameters.AF_NumberSweeps),'Callback',@UpdateAcqParam);
-uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.162 0.913 0.034 0.022],'String','sweeps');  
+uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'Autofocus every','units','normalized','tag','AF','Position', [0.076 0.916 0.065 0.025],'FontSize',10,'Value',AcqParameters.AF,'Tooltip','Autofocus piezo Z every X sweeps during a scan','Callback',@UpdateAcqParam);
+uicontrol('Parent',tab1,'Style','edit','tag','AF_NumberSweeps','FontSize',10,'units','normalized','Position',[0.150 0.916 0.02 0.025],'String',num2str(AcqParameters.AF_NumberSweeps),'Callback',@UpdateAcqParam);
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.172 0.916 0.034 0.022],'String','sweeps');  
 
-uicontrol('Parent',tab1,'Style', 'text', 'String', sprintf('TEST WITHOUT\n HARDWARE'),'ForegroundColor','red','units','normalized','tag','testwohar',...
-    'Position', [0.076 0.917 0.085 0.05],'FontSize',15,'FontWeight','bold','VISIBLE',valuetestwohar);
+uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'Autofocus every','units','normalized','tag','AF_Scan','Position', [0.076 0.888 0.065 0.025],'FontSize',10,'Value',AcqParameters.AF_Scan,'Tooltip','Autofocus piezo Z every X scan during a multi-scan','Callback',@UpdateAcqParam);
+uicontrol('Parent',tab1,'Style','edit','tag','AF_NumberScan','FontSize',10,'units','normalized','Position',[0.150 0.888 0.02 0.025],'String',num2str(AcqParameters.AF_NumberScan),'Callback',@UpdateAcqParam);
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.172 0.888 0.034 0.022],'String','scans');  
+
+% uicontrol('Parent',tab1,'Style', 'text', 'String', sprintf('TEST WITHOUT\n HARDWARE'),'ForegroundColor','red','units','normalized','tag','testwohar',...
+%     'Position', [0.076 0.917 0.085 0.05],'FontSize',15,'FontWeight','bold','VISIBLE',valuetestwohar);
 
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.235 0.968 0.041 0.025],'String','MWPower');
 uicontrol('Parent',tab1,'Style','edit','tag','MWPower','FontSize',10,'units','normalized','Position',[0.279 0.973 0.02 0.025],'String',num2str(AcqParameters.MWPower),'Callback',@UpdateMWPower);
@@ -46,24 +50,31 @@ uicontrol('Parent',tab1,'Style','edit','tag','NumPoints','FontSize',10,'units','
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.227 0.909 0.05 0.025],'String','NumSweeps');
 uicontrol('Parent',tab1,'Style','edit','tag','NumSweeps','FontSize',10,'units','normalized','Position',[0.279 0.913 0.02 0.025],'String',num2str(AcqParameters.NumSweeps),'Callback',@UpdateAcqParam);
 
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.227 0.883 0.05 0.025],'String','MagSweep','Tooltip','Sweep the magnetic field intensity between O and BSweepMax with RepeatScan number of steps');
+uicontrol('Parent',tab1,'Style','checkbox','tag','MagSweep','FontSize',10,'units','normalized','Position',[0.285 0.888 0.066 0.025],'Value',AcqParameters.MagSweep,'Callback',@UpdateMagSweep);
+
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.888 0.043 0.025],'String','BSweepMax','Tooltip','Uses the BField parameters chosen in magnetic coil tab');
+uicontrol('Parent',tab1,'Style','edit','tag','BSweepMax','FontSize',10,'units','normalized','Position',[0.375 0.891 0.025 0.025],'String',num2str(AcqParameters.BSweepMax),'Callback',@UpdateAcqParam);
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.401 0.888 0.02 0.025],'String','mT');
+
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.968 0.043 0.025],'String','FCenter');
 uicontrol('Parent',tab1,'Style','edit','tag','FCenter','FontSize',10,'units','normalized','Position',[0.375 0.973 0.025 0.025],'String',num2str(AcqParameters.FCenter),'Callback',@UpdateAcqParam);
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.401 0.968 0.02 0.025],'String','GHz');
 
-uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.938 0.043 0.025],'String','FSpan');
-uicontrol('Parent',tab1,'Style','edit','tag','FSpan','FontSize',10,'units','normalized','Position',[0.375 0.943 0.025 0.025],'String',num2str(AcqParameters.FSpan),'Callback',@UpdateAcqParam);
-uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.401 0.938 0.02 0.025],'String','MHz');
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.941 0.043 0.025],'String','FSpan');
+uicontrol('Parent',tab1,'Style','edit','tag','FSpan','FontSize',10,'units','normalized','Position',[0.375 0.946 0.025 0.025],'String',num2str(AcqParameters.FSpan),'Callback',@UpdateAcqParam);
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.401 0.941 0.02 0.025],'String','MHz');
 
-uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.222 0.882 0.055 0.022],'String','Backup every');
-uicontrol('Parent',tab1,'Style','edit','tag','BackupNSweeps','FontSize',10,'units','normalized','Position',[0.279 0.883 0.02 0.025],'String',num2str(AcqParameters.BackupNSweeps),'Callback',@UpdateAcqParam, 'TooltipString', 'Uses fast&heavy save mode to backup regularly during acquisition');
-uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.301 0.882 0.034 0.022],'String','sweeps');   
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.222 0.862 0.055 0.022],'String','Backup every');
+uicontrol('Parent',tab1,'Style','edit','tag','BackupNSweeps','FontSize',10,'units','normalized','Position',[0.279 0.863 0.02 0.025],'String',num2str(AcqParameters.BackupNSweeps),'Callback',@UpdateAcqParam, 'TooltipString', 'Uses fast&heavy save mode to backup regularly during acquisition');
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.301 0.862 0.034 0.022],'String','sweeps');   
 
-uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.909 0.043 0.025],'String','RepeatScan');
-uicontrol('Parent',tab1,'Style','edit','tag','RepeatScan','FontSize',10,'units','normalized','Position',[0.375 0.913 0.025 0.025],'String',num2str(AcqParameters.RepeatScan),'Callback',@UpdateRepeatScan,...
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.915 0.043 0.025],'String','RepeatScan');
+uicontrol('Parent',tab1,'Style','edit','tag','RepeatScan','FontSize',10,'units','normalized','Position',[0.375 0.919 0.025 0.025],'String',num2str(AcqParameters.RepeatScan),'Callback',@UpdateRepeatScan,...
     'Tooltip','To repeat the full acquisition with a new incremented name, the value is the total number of scans');
 
-uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.882 0.043 0.022],'String','RefMWOff');
-uicontrol('Parent',tab1,'Style','edit','tag','RefMWOff','FontSize',10,'units','normalized','Position',[0.375 0.883 0.025 0.025],'String',num2str(AcqParameters.RefMWOff),'Callback',@UpdateAcqParam,...
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.862 0.043 0.022],'String','RefMWOff');
+uicontrol('Parent',tab1,'Style','edit','tag','RefMWOff','FontSize',10,'units','normalized','Position',[0.375 0.863 0.025 0.025],'String',num2str(AcqParameters.RefMWOff),'Callback',@UpdateAcqParam,...
     'Tooltip',['0: Standard mode' 10 '1: Divide by a single reference image taken at the start of each sweep' 10 '2: Divide by a reference image taken for each freq value' 10 'If mode 2 does not work, you probably go too fast for your MW generator, check its display']);
 
 uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'Finish sweep','units','normalized','tag','FinishSweep',...
@@ -94,7 +105,7 @@ uicontrol('Parent',tab1,'Style', 'pushbutton', 'String', 'Auto','units','normali
 %%%%%%%%
 %Image taken at cycle start
 hp = uipanel('Parent',tab1,'Title','Sample Image','FontSize',12,'FontWeight','bold',...
-    'BackgroundColor','white','Position',[0.05 0.28 .4 .6]);
+    'BackgroundColor','white','Position',[0.025 0.28 .425 .58]);
 ax=axes('Parent',hp,'tag','Axes1','Position',[0.12 0.15  0.8 0.8]);
 %ESR on one pixel
 hp2 = uipanel('Parent',tab1,'Title','ESR One Pixel','FontSize',12,'FontWeight','bold',...

@@ -227,7 +227,7 @@ elseif NumComp == 1 && FitMethod == 5
     ax.TickDir = 'out';
     xlabel(xlabel_str);
     ylabel(ylabel_str);
-    caxis([2990,2996]);
+    caxis([2830,2855]);
     c = colorbar;
     c.FontSize = 10.5;
     
