@@ -34,6 +34,7 @@ tab_fitparam = hguitab(tgroup,'Title','Fit Parameters');
 tab_additional = hguitab(tgroup,'Title','Additional Parameters');
 tab_readtemp = hguitab(tgroup,'Title','Continuous temperature reading');
 tab_alignpiezo = hguitab(tgroup,'Title','Check Piezo Auto-Alignment');
+tab_controlcoil = hguitab(tgroup,'Title','Control Magnetic Coils');
 tgroup.SelectedTab = tab2;
 
 Tab1;
@@ -42,6 +43,7 @@ Tab_FitParam;
 Tab_Additional;
 Tab_ReadTemp;
 Tab_AlignPiezo;
+Tab_ControlCoil;
 TurnUnusedSettingsInvisible();
 
 if TestWithoutHardware

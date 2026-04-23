@@ -8,7 +8,7 @@ global ObjCamera CameraType handleImage TestWithoutHardware
 % end
 
 if strcmpi(CameraChoice,'Andor')
-    if exist([matlabroot '\toolbox\AndorSDK3\andorsdk3functions.mexw64'], 'file') ~= 3 % check if AndorSDK3 is installed on the computer
+    if ~ismember(exist([matlabroot '\toolbox\AndorSDK3\andorsdk3functions.mexw64'], 'file'), [2 3]) % check if AndorSDK3 is installed on the computer
         disp('Andor SDK3 is not installed');
     else
         % Two things are needed: the toolbox needs to be installed in the root folder,

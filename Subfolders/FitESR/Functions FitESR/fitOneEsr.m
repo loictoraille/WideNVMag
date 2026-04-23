@@ -27,7 +27,7 @@ end
 
 if UsePstart
     pStart = pStart(:,1)';
-else
+else %% it's a bit weird to do this part here if I only use AutoFit (fit method 5), which already does this. As long as there is no mistake it's fine, but it's a copy paste. Consider cleaning this.
     SPX = V_MHz;
     SPY = Spectre;
     if FitStuff == 1
@@ -127,7 +127,7 @@ switch FitMethod
 %             pStart = 0;
 %         end
         if length(pStart) > 1
-            pStart(1:NumPeaks) = pStart(1:NumPeaks)*pStart(end);
+%             pStart(1:NumPeaks) = pStart(1:NumPeaks)*pStart(end); Nope
             pStart = pStart(1:end-1);% deleting the baseline value for this fit method
             pStart = FromPairToPos(pStart).';% correct order and formatting
         end

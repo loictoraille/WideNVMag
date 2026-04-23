@@ -28,6 +28,12 @@ end
 
 axes(ax);
 
+% To open file with no AOI definition
+% AcqParameters.AOILEVEL = 1;
+% AcqParameters.AOI = {};
+% AcqParameters.AOI.Width = 712;
+% AcqParameters.AOI.Height = 712;
+
 [~,sizelevel] = size(AcqParameters.AOI.Width);
 
 AOIParameters.AOI.Height = AcqParameters.AOI.Height(min(sizelevel,AcqParameters.AOILEVEL));

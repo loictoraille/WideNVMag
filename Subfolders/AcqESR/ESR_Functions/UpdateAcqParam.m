@@ -73,6 +73,8 @@ ResetPiezo = panel.ResetPiezo.Value;
 
 AF = panel.AF.Value;
 AF_NumberSweeps = str2double(panel.AF_NumberSweeps.String);
+AF_Scan = panel.AF_Scan.Value;
+AF_NumberScan = str2double(panel.AF_NumberScan.String);
 AF_Method = panel.AF_Method.String;
 
 LaserShutter = panel.LaserShutter.Value;
@@ -93,6 +95,16 @@ SensorTempD = panel.SensorD.Value;
 SensorTempC_Name = panel.SensorC_Name.String;
 SensorTempD_Name = panel.SensorD_Name.String;
 
+MagSweep = panel.MagSweep.Value;
+BSweepMax = str2double(panel.BSweepMax.String);
+
+BxCoil = str2double(panel.BxCoil.String);
+ByCoil = str2double(panel.ByCoil.String);
+BzCoil = str2double(panel.BzCoil.String);
+XcoilCalib = str2double(panel.XcoilCalib.String);
+YcoilCalib = str2double(panel.YcoilCalib.String);
+ZcoilCalib = str2double(panel.ZcoilCalib.String);
+
 %%
 
 SaveAcqParameters({{Data_Path,'Data_Path'},{Save,'Save'},{RandomFreq,'RandomFreq'},{RefMWOff,'RefMWOff'},{AutoAlignCrop,'AutoAlignCrop'},...
@@ -105,10 +117,12 @@ SaveAcqParameters({{Data_Path,'Data_Path'},{Save,'Save'},{RandomFreq,'RandomFreq
     {PiezoStepX,'PiezoStepX'},{PiezoStepY,'PiezoStepY'},{PiezoStepZ,'PiezoStepZ'},...
     {PiezoLight,'PiezoLight'},{CalibPiezoX,'CalibPiezoX'},{CalibPiezoY,'CalibPiezoY'},{CalibPiezoZ,'CalibPiezoZ'},...
     {SaveMode,'SaveMode'},{COM_Lakeshore,'COM_Lakeshore'},{COM_Betsa,'COM_Betsa'},{ResetPiezo,'ResetPiezo'},...
-    {AF,'AF'},{AF_NumberSweeps,'AF_NumberSweeps'},{AF_Method,'AF_Method'},{TR_Period_Minute,'TR_Period_Minute'},{DisplayLight,'DisplayLight'},...
+    {AF,'AF'},{AF_NumberSweeps,'AF_NumberSweeps'},{AF_Scan,'AF_Scan'},{AF_NumberScan,'AF_NumberScan'},{AF_Method,'AF_Method'},{TR_Period_Minute,'TR_Period_Minute'},{DisplayLight,'DisplayLight'},...
     {MaxLum,'MaxLum'},{LaserShutter,'LaserShutter'},{LaserShutterPort,'LaserShutterPort'}...
     {SensorTempA,'SensorTempA'},{SensorTempB,'SensorTempB'},{SensorTempA_Name,'SensorTempA_Name'},{SensorTempB_Name,'SensorTempB_Name'},...
     {SensorTempC,'SensorTempC'},{SensorTempD,'SensorTempD'},{SensorTempC_Name,'SensorTempC_Name'},{SensorTempD_Name,'SensorTempD_Name'},...
-    {FileNamePrefix,'FileNamePrefix'},{FileNamePrefixChoice,'FileNamePrefixChoice'},{FileNameUserPrefix,'FileNameUserPrefix'}});
+    {FileNamePrefix,'FileNamePrefix'},{FileNamePrefixChoice,'FileNamePrefixChoice'},{FileNameUserPrefix,'FileNameUserPrefix'},...
+    {MagSweep,'MagSweep'},{BSweepMax,'BSweepMax'},{BxCoil,'BxCoil'},{ByCoil,'ByCoil'},{BzCoil,'BzCoil'},{XcoilCalib,'XcoilCalib'},...
+    {YcoilCalib,'YcoilCalib'},{ZcoilCalib,'ZcoilCalib'}});
 
 end

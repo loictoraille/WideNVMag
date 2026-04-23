@@ -1,0 +1,3 @@
+Bxc = 1.01 mT
+Byc = 2.5 mT
+Bzc = -3.01 mT

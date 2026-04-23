@@ -108,6 +108,31 @@ if ~TestWithoutHardware && AutoAlignPiezo && i_scan == 1
     Lum_Post_AutoCorr = Lum_Initial; X_piez = []; Y_piez = []; Corr_select_trans = []; Shift_X = []; Shift_Y = []; fit_xy_successful = [];
 end
 
+%% MagSweep 
+
+if ~TestWithoutHardware && MagSweep && isfield(panel,'UserData') && isfield(panel.UserData,'MCC')
+    if i_scan == 1
+        panel.UserData.BxStart = AcqParameters.BxCoil;
+        panel.UserData.ByStart = AcqParameters.ByCoil;
+        panel.UserData.BzStart = AcqParameters.BzCoil;
+        guidata(gcbo,panel);
+        panel.Bbutton.Value = 1;        
+    end
+    BxStart = panel.UserData.BxStart;
+    ByStart = panel.UserData.ByStart;
+    BzStart = panel.UserData.BzStart;
+    StartBnorm = sqrt(BxStart^2+ByStart^2+BzStart^2);
+    NewBnorm = ((i_scan-1)/(TotalScan-1))*BSweepMax;
+    Ratio = NewBnorm/StartBnorm;
+    NewB_x = BxStart*Ratio;
+    NewB_y = ByStart*Ratio;
+    NewB_z = BzStart*Ratio;
+    panel.BxCoil.String = num2str(round(NewB_x*100)/100);
+    panel.ByCoil.String = num2str(round(NewB_y*100)/100);
+    panel.BzCoil.String = num2str(round(NewB_z*100)/100);
+    Update_Tension();
+end
+
 %% First Image
 % Lum_Initial > used as reference for multiple scans, taken the first scan and that's it
 % Lum_Start > used as reference in a single scan between different sweeps
@@ -116,8 +141,14 @@ if panel.shutterlaser.Value == 0
     LaserOn(panel);% to turn on the laser for the scan part
 end
 
-if  ~TestWithoutHardware && i_scan == 1 && AutoAlignPiezo && TotalScan > 1
+ind_AF = 0;
+if  ~TestWithoutHardware && i_scan == 1 && (AutoAlignPiezo || AF_Scan) && TotalScan > 1
     disp('Initial Autofocus Z when RepeatScan > 1');
+    [Opt_Z, z_out, foc_out, Shift_Z, fit_z_successful] = FuncIndepAutofocusPiezo(panel);
+    ind_AF = 1; % indicator to avoid doing another unnecessary starting autofocus in some cases
+end
+
+if  ~TestWithoutHardware && AF_Scan && mod(i_scan,AF_NumberScan) == 0 
     [Opt_Z, z_out, foc_out, Shift_Z, fit_z_successful] = FuncIndepAutofocusPiezo(panel);
 end
 
@@ -210,6 +241,10 @@ for Acc=1:(AccNumber+99*ALIGN*AccNumber) %Loop on Accumulation number
             perm = randperm(lenPerm)+(iperm-1)*lenPerm;
             RandomPerm = [RandomPerm perm];
         end
+    end
+    if AF && Acc==1 && ind_AF == 0 % if AF was already done, no need to do it again
+         disp('Initial Autofocus Z when autofocus every X sweeps');
+         [Opt_Z, z_out, foc_out, Shift_Z, fit_z_successful] = FuncIndepAutofocusPiezo(panel);
     end
     if RefMWOff == 1 && ~TestWithoutHardware
         WriteSMB('OUTP OFF'); %RF Power OFF
@@ -520,6 +555,14 @@ else
 end 
 
 if  i_scan == TotalScan
+    if ~TestWithoutHardware && MagSweep && isfield(panel,'UserData') && isfield(panel.UserData,'MCC')
+        % reset B values to starting ones
+        panel.BxCoil.String = num2str(round(panel.UserData.BxStart));
+        panel.ByCoil.String = num2str(round(panel.UserData.ByStart));
+        panel.BzCoil.String = num2str(round(panel.UserData.BzStart));
+        Update_Tension();
+    end
+
     LightOn(panel); % start light and camera again at the true end of the acquisition
 
     panel.start.Value=0;panel.start.ForegroundColor = [1,0,0];
