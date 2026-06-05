@@ -19,7 +19,7 @@ if pname ~= 0
     Data_Path = pname;
 end
 
-panel.fname.String = ['File: ' fname(1:end-4)];
+panel.fname.String = fname(1:end-4);
 
 %uicontrol('Parent',tab1,'Style','text','tag','nameFile','units','normalized','FontSize',16,'HorizontalAlignment','left','FontWeight','bold','Position',[0.01 0.21 0.24 0.05],'String',['File: ' AcqParameters.nomSave]);
 

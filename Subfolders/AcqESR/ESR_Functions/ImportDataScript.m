@@ -76,13 +76,28 @@ if ~isfield(AcqParameters,'CalibUnit_str')
     AcqParameters.PixelCalib_nm = '500';
 end
 
-if ~isfield(AcqParameters,'AOI')
+if isfield(AcqParameters, 'AOI') && isfield(AcqParameters, 'AOILEVEL') %% checking for cases where the AOI and the size of M are not consistent
+    [~,sizelevel] = size(AcqParameters.AOI.Width);
+    AOI_Width_stored = AcqParameters.AOI.Width(min(sizelevel,AcqParameters.AOILEVEL));
+    AOI_Height_stored = AcqParameters.AOI.Height(min(sizelevel,AcqParameters.AOILEVEL));
+    [M_Height_stored,M_Width_stored,~] = size(M);
+    if M_Height_stored > AOI_Height_stored || M_Width_stored > AOI_Width_stored 
+        AcqParameters.AOI.Height = M_Height_stored;
+        AcqParameters.AOI.Width = M_Width_stored;
+        AcqParameters.AOI.X = 1; AcqParameters.AOI.Y = 1;
+    end
+end
+
+if ~isfield(AcqParameters,'AOI') %% checking for cases where the AOI is not stored correctly
     [AcqParameters.AOI.Height,AcqParameters.AOI.Width,~] = size(M);
+    AcqParameters.AOI.X = 1; AcqParameters.AOI.Y = 1; 
 end    
 
 if ~isfield(AcqParameters,'ExposureUnit') || (isfield(AcqParameters,'ExposureUnit') && any(isnan(AcqParameters.ExposureUnit)))
     AcqParameters.ExposureUnit = ''; % probably seconds but who knows
 end    
+
+save(file,'AcqParameters','-append')
 
 CheckAndUpdateAcqParameters(file,'none');
 

@@ -9,15 +9,14 @@ disp('saving backup...')
 load([getPath('Param') 'AcqParameters.mat']);
 Data_Path = AcqParameters.Data_Path;
 
-nomSave = NameGen(Data_Path,AcqParameters.FileNamePrefix,1);
+nomSave = NameGen(Data_Path,AcqParameters.FileNamePrefix);
 
-% List of variables to save
-varList = {'M', 'Ftot', 'CenterF_GHz', 'Width_MHz', 'NPoints', 'Acc', ...
-           'MWPower', 'T', 'ExposureTime', 'FrameRate', 'PixelClock', ...
-           'RANDOM', 'AcqParameters', 'CameraType', 'AcquisitionTime_minutes', 'Lum_Current'};
+% Load everything into a structure
+% Slower than copy paste, but compresses the files
+S = load([Data_Path 'backup.mat']);
 
-load([Data_Path 'backup.mat'],varList{:}); % slower than copy paste, but compresses the files
-save([Data_Path nomSave '.mat'], varList{:});
+% Save all fields from the structure
+save([Data_Path nomSave '.mat'], '-struct', 'S');
 
 disp(['backup saved compressed as ' nomSave '.mat']);
 

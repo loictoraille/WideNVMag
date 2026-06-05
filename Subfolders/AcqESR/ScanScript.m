@@ -8,7 +8,6 @@ global M ObjCamera CameraType Ftot TestWithoutHardware NI_card Lum_Current
 LIGHT = 1; % lumiere allumee pendant les procedures d'alignement PerformAlignPiezo % value set in the Camera Panel
 
 panel=guidata(gcbo);
-panel.nameFile.String = ['File: ' nomSave];
 
 if TotalScan > 1 && i_scan > 1
     rem_time_all = (TotalScan-i_scan)*time_one_scan;
@@ -122,7 +121,7 @@ if ~TestWithoutHardware && MagSweep && isfield(panel,'UserData') && isfield(pane
     ByStart = panel.UserData.ByStart;
     BzStart = panel.UserData.BzStart;
     StartBnorm = sqrt(BxStart^2+ByStart^2+BzStart^2);
-    NewBnorm = ((i_scan-1)/(TotalScan-1))*BSweepMax;
+    NewBnorm = BSweepMin + ((i_scan-1)/(TotalScan-1))*(BSweepMax - BSweepMin);
     Ratio = NewBnorm/StartBnorm;
     NewB_x = BxStart*Ratio;
     NewB_y = ByStart*Ratio;
@@ -177,7 +176,7 @@ end
 if  ~TestWithoutHardware && i_scan == 1 && AutoAlignPiezo && TotalScan > 1
     Lum_Initial_LaserOff = Lum_Start_LightOn_LaserOff;    
     Lum_Initial = Lum_Start_LightOn_LaserOn;
-%     writematrix(Lum_Initial,[Data_Path nomSave '_Lum_Initial.csv']);
+%     writematrix(Lum_Initial,[Data_Path GetNameFromString(panel.nameFile.String) '_Lum_Initial.csv']);
     ax_lum_initial = panel.ax_lum_initial;
     imagesc(ax_lum_initial,Lum_Start_LightOn_LaserOn);axis(ax_lum_initial,'image');caxis(ax_lum_initial,[0 str2double(panel.MaxLum.String)]);
     set(ax_lum_initial,'Tag','ax_lum_initial'); % Necessary to rewrite tag of axes after imagesc (I don't know why)
@@ -439,11 +438,12 @@ for Acc=1:(AccNumber+99*ALIGN*AccNumber) %Loop on Accumulation number
         panel.Temp_txt.String = CreateT_string(T);
     end
     
-    if mod(Acc,BackupNSweeps) == 0     
-        fullNameSave = [Data_Path nomSave];
+    if mod(Acc,BackupNSweeps) == 0
+        fullNameSave = [Data_Path GetNameFromString(panel.nameFile.String)];
         endacq = toc;
         AcquisitionTime_minutes = round(endacq/60); 
         load([getPath('Param') 'AcqParameters.mat']);load([getPath('Param') 'FitParameters.mat']);    
+        AcqParameters.CreationTime = datestr(now);
         if ~TestWithoutHardware
             if DelEx
                 Store_Ftot = Ftot;Store_M = M;
@@ -532,8 +532,9 @@ if ~TestWithoutHardware
     SwitchGEN('OFF',MWPower);%RF OFF
 end
 
-fullNameSave = [Data_Path nomSave];
+fullNameSave = [Data_Path GetNameFromString(panel.nameFile.String)];
 load([getPath('Param') 'AcqParameters.mat']);load([getPath('Param') 'FitParameters.mat']);    
+AcqParameters.CreationTime = datestr(now);
 if ~TestWithoutHardware    
     if DelEx
         Store_Ftot = Ftot;Store_M = M;
@@ -542,7 +543,7 @@ if ~TestWithoutHardware
     end
     disp('Saving...');
     save(fullNameSave, saveArgs{:});
-    disp(['File saved as ' nomSave]);
+    disp(['File saved as ' fullNameSave]);
     drawnow;%Update GUI
     if DelEx
         Ftot = Store_Ftot;
@@ -551,7 +552,7 @@ if ~TestWithoutHardware
     end
 else
     save(fullNameSave,'M','Ftot','CenterF_GHz','Width_MHz','NPoints','Acc','MWPower','T','RANDOM','AcqParameters');
-    disp(['File saved as ' nomSave]);
+    disp(['File saved as ' fullNameSave]);
 end 
 
 if  i_scan == TotalScan

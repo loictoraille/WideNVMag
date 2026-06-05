@@ -30,11 +30,16 @@ startTime = datetime('now'); % Capture l'heure de départ
 Lum_Initial = [];
 Lum_Initial_LaserOff = [];
 
-[nomSave,numScan] = NameGen(AcqParameters.Data_Path,AcqParameters.FileNamePrefix,AcqParameters.Save);
+BuildName = NameGen(AcqParameters.Data_Path,panel.FileNamePrefix.String);
+SaveAcqParameters({{BuildName,'BuildName'}});
+nomSave = BuildName; nomSave_init = nomSave;
+PrintName = GetSaveName(BuildName,panel.Save.Value);
+panel.nameFile.String = PrintName;
 time_one_scan = 0; % initialization
 
 if AcqParameters.Save == 1 && TotalScan > 1
-    diary([AcqParameters.Data_Path nomSave '-' sprintf('%03d', numScan+TotalScan) '_log.txt']);  % Starts to save
+    name_diary_init = DiaryName(AcqParameters.Data_Path, nomSave_init, panel.FileNamePrefixChoice.SelectedObject.String,TotalScan);
+    diary(name_diary_init);  % Starts to save
     disp('Sarting log of command window')  % Toute sortie affichée ici sera enregistrée
 end
 
@@ -43,7 +48,11 @@ while i_scan <= TotalScan
     disp(['Starting acquisition number ' num2str(i_scan) ' / ' num2str(TotalScan)]);
     disp(['Current Date and Time: ', datestr(datetime('now'))]);
     if AcqParameters.RepeatScan > 1 && i_scan ~= 1
-        nomSave = GenNextFileName(nomSave); % so that the date change does not change the name
+        BuildName = GenNextFileName(BuildName,panel.FileNamePrefixChoice.SelectedObject.String,AcqParameters.RepeatScan); % so that the date change does not change the name
+        SaveAcqParameters({{BuildName,'BuildName'}});
+        nomSave = BuildName;
+        PrintName = GetSaveName(BuildName,panel.Save.String);
+        panel.nameFile.String = PrintName;
     end
     tic
     [Lum_Initial,Lum_Initial_LaserOff] = StartFunction(i_scan, Lum_Initial, Lum_Initial_LaserOff, nomSave, time_one_scan);
@@ -65,10 +74,9 @@ if AcqParameters.RepeatScan > 1
     disp(['Full acquisition lasted: ', num2str(floor(h)), 'h ', num2str(floor(m)), 'm ', num2str(round(s)), 's']);
     diary off;
     % update log file name
-    oldLogName = [AcqParameters.Data_Path nomSave '-' sprintf('%03d', numScan + TotalScan) '_log.txt'];
-    newLogName = [AcqParameters.Data_Path nomSave '-' sprintf('%03d', numScan + i_scan -1) '_log.txt'];
-    if exist(oldLogName,'file') == 2
-        movefile(oldLogName, newLogName);
+    newLogName = DiaryName(AcqParameters.Data_Path, nomSave_init, panel.FileNamePrefixChoice.SelectedObject.String,i_scan-1); 
+    if (exist(name_diary_init,'file') == 2) && (strcmp(name_diary_init,newLogName) ~= 1)
+        movefile(name_diary_init, newLogName);
     end
 end
 
