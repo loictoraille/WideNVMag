@@ -260,7 +260,7 @@ uicontrol('Parent',TAB,'Style','pushbutton','String','B4','units','normalized','
 uicontrol('Parent',TAB,'Style','pushbutton','String','Store','units','normalized','tag','B4Store',...
     'Position', [LateralPosition+0.5*WidthStep+OffsetHorizontal VerticalUp 0.5*WidthStep Height/3],'FontSize',FtSize,...
     'Value',0,'Callback',@StoreAllFunction);
-uicontrol('Parent',TAB,'Style','text','units','normalized','FontSize',FtSize,'Position',[LateralPosition+1.1*WidthStep+OffsetHorizontal VerticalUp+OffsetVertical WidthStep Height/3],'String','User1','HorizontalAlignment','left');
+uicontrol('Parent',TAB,'Style','edit','units','normalized','FontSize',FtSize,'tag','Bname_User1','Position',[LateralPosition+1.1*WidthStep+OffsetHorizontal VerticalUp 0.4*WidthStep Height/3],'String',AcqParameters.Bname_User1,'HorizontalAlignment','left','Callback',@UpdateAcqParam);
 
 VerticalUp = VerticalPosition-0.45*Height;
 uicontrol('Parent',TAB,'Style','pushbutton','String','B5','units','normalized','tag','B5Rec',...
@@ -269,7 +269,7 @@ uicontrol('Parent',TAB,'Style','pushbutton','String','B5','units','normalized','
 uicontrol('Parent',TAB,'Style','pushbutton','String','Store','units','normalized','tag','B5Store',...
     'Position', [LateralPosition+0.5*WidthStep+OffsetHorizontal VerticalUp 0.5*WidthStep Height/3],'FontSize',FtSize,...
     'Value',0,'Callback',@StoreAllFunction);
-uicontrol('Parent',TAB,'Style','text','units','normalized','FontSize',FtSize,'Position',[LateralPosition+1.1*WidthStep+OffsetHorizontal VerticalUp+OffsetVertical WidthStep Height/3],'String','User2','HorizontalAlignment','left');
+uicontrol('Parent',TAB,'Style','edit','units','normalized','FontSize',FtSize,'tag','Bname_User2', 'Position',[LateralPosition+1.1*WidthStep+OffsetHorizontal VerticalUp 0.4*WidthStep Height/3],'String',AcqParameters.Bname_User2,'HorizontalAlignment','left','Callback',@UpdateAcqParam);
 
 
 %% Connection

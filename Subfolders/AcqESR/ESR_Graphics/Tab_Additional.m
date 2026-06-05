@@ -64,53 +64,55 @@ uicontrol('Parent', tab_additional, 'Style', 'checkbox', 'String', 'PerformAlign
 
 if strcmp(AcqParameters.FileNamePrefixChoice, 'Date+Base')
     IniFileNamePrefix = [date '-ESR-WideField'];
+elseif strcmp(AcqParameters.FileNamePrefixChoice, 'Date+Time')
+    IniFileNamePrefix = GenDateTimeName(AcqParametersRepeatScan);
 else
     IniFileNamePrefix = AcqParameters.FileNameUserPrefix;
 end
 
 % Main panel, centré dans l'onglet
 cpanel_filename = uipanel('Parent', tab_additional, 'Title', 'File Name Prefix', 'FontSize', 14, ...
-    'Position', [0.35 0.45 0.3 0.2]);  % Ajustement de la taille et position au centre
+    'Position', [0.35 0.4 0.3 0.3]);  % Ajustement de la taille et position au centre
 
 % Ligne affichant "Prefix = " et la valeur associée
 uicontrol('Parent', cpanel_filename, 'Style', 'text', 'String', 'Prefix = ', ...
     'units', 'normalized', 'FontSize', 12, 'HorizontalAlignment', 'right',  ...
-    'Position', [0.05 0.77 0.17 0.15]);
+    'Position', [0.05 0.8 0.17 0.15]);
 
 uicontrol('Parent', cpanel_filename, 'Style', 'text', 'String',IniFileNamePrefix, ...
     'units', 'normalized', 'FontSize', 12, 'HorizontalAlignment', 'left', 'FontWeight', 'bold', ...
-    'Position', [0.23 0.77 0.75 0.15], 'Tag', 'FileNamePrefix');
+    'Position', [0.23 0.8 0.75 0.15], 'Tag', 'FileNamePrefix');
 
 % Sous-panel avec uibuttongroup
 bg_prefixChoice = uibuttongroup('Parent', cpanel_filename, 'Title', '', ...
-    'units', 'normalized', 'Position', [0.05 0.37 0.25 0.35], 'SelectionChangedFcn', @UpdatePrefixName, 'Tag','FileNamePrefixChoice');
+    'units', 'normalized', 'Position', [0.05 0.32 0.25 0.45], 'SelectionChangedFcn', @UpdatePrefixName, 'Tag','FileNamePrefixChoice');
 
 r1_prefixChoice = uicontrol(bg_prefixChoice, 'Style', 'radiobutton', 'String', 'Date+Base', ...
-    'units', 'normalized', 'FontSize', 12, 'Position', [0.05 0.5 0.9 0.5], 'Tag', 'PrefixChoiceDate');
+    'units', 'normalized', 'FontSize', 12, 'Position', [0.05 0.65 0.9 0.3], 'Tag', 'PrefixChoiceDate');
 
-r2_prefixChoice = uicontrol(bg_prefixChoice, 'Style', 'radiobutton', 'String', 'UserDefined', ...
-    'units', 'normalized', 'FontSize', 12, 'Position', [0.05 0 0.9 0.5], 'Tag', 'PrefixChoiceUser');
+r2_prefixChoice = uicontrol(bg_prefixChoice, 'Style', 'radiobutton', 'String', 'Date+Time', ...
+    'units', 'normalized', 'FontSize', 12, 'Position', [0.05 0.35 0.9 0.3], 'Tag', 'PrefixChoiceUser');
+
+r3_prefixChoice = uicontrol(bg_prefixChoice, 'Style', 'radiobutton', 'String', 'UserDefined', ...
+    'units', 'normalized', 'FontSize', 12, 'Position', [0.05 0.05 0.9 0.3], 'Tag', 'PrefixChoiceUser');
 
 % Sélection initiale
 if strcmp(AcqParameters.FileNamePrefixChoice, 'Date+Base')
     bg_prefixChoice.SelectedObject = r1_prefixChoice;
-else
+elseif strcmp(AcqParameters.FileNamePrefixChoice, 'Date+Time')
     bg_prefixChoice.SelectedObject = r2_prefixChoice;
+else
+    bg_prefixChoice.SelectedObject = r3_prefixChoice;
 end
 
 % Ligne pour l'édition du préfixe utilisateur
 uicontrol('Parent', cpanel_filename, 'Style', 'text', 'String', 'User Prefix = ', ...
     'units', 'normalized', 'FontSize', 12, 'HorizontalAlignment', 'left', ...
-    'Position', [0.05 0.1 0.17 0.15]);
+    'Position', [0.05 0.02 0.17 0.2]);
 
 uicontrol('Parent', cpanel_filename, 'Style', 'edit', 'String', AcqParameters.FileNameUserPrefix, ...
     'units', 'normalized', 'FontSize', 12, 'Tag', 'FileNameUserPrefix', 'HorizontalAlignment', 'left', ...
     'Position', [0.23 0.08 0.75 0.2], 'Callback', @UpdatePrefixName);
-
-% Update FileName
-nomSave = NameGen(AcqParameters.Data_Path,IniFileNamePrefix,AcqParameters.Save);
-tag_FileName = findobj('tag','nameFile');
-set(tag_FileName,'String',['File: ' nomSave]);
 
 %% Setup Type Panel
 

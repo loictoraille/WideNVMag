@@ -1,7 +1,9 @@
-function newFileName = GenNextFileName(fileName)
+function newFileName = GenNextFileName(fileName,filePrefix,RepeatScan)
 
-if strcmp(fileName,'backup')
+if strcmp(fileName,'backup') 
     newFileName = fileName;
+elseif strcmp(filePrefix, 'Date+Time')
+    newFileName = GenDateTimeName(RepeatScan);
 else
 
 % Extract the base name and the number from the file name
@@ -18,7 +20,7 @@ else
     
     % Generate the new file name with the incremented number
     newNum = sprintf('%03d', num + 1);
-    newFileName = [baseName(1:end-length(numStr{1})), num2str(newNum), '.mat'];
+    newFileName = [baseName(1:end-length(numStr{1})), num2str(newNum)];
 
 end
 

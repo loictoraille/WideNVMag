@@ -213,7 +213,7 @@ uicontrol('Parent',bg_np,'Style','text','FontSize',12,'units','normalized','Posi
 sizeM = size(M);
 RefMWOffString  = 'No Ref MW Off';
 
-uicontrol('Parent',tab1,'Style','text','tag','fname','units','normalized','FontSize',16,'HorizontalAlignment','left','FontWeight','bold','Position',[0.01 0.23 0.24 0.035],'String',['File: ' AcqParameters.nomSave]);
+uicontrol('Parent',tab1,'Style','text','tag','fname','units','normalized','FontSize',16,'HorizontalAlignment','left','FontWeight','bold','Position',[0.01 0.23 0.24 0.035],'String',AcqParameters.nomSave);
 TextInfo9_Handle=uicontrol('Parent',tab1,'Style','text','units','normalized','Position',[0.01 0.1 0.09 0.02],'tag','StrRefMWOff','HorizontalAlignment','left','String',RefMWOffString);
 TextInfo2_Handle=uicontrol('Parent',tab1,'Style','text','units','normalized','Position',[0.01 0.07 0.09 0.02],'tag','StrAcqTime','HorizontalAlignment','left','String',['Acquisition time = ' num2str(AcquisitionTime_minutes) ' minutes']);
 TextInfo3_Handle=uicontrol('Parent',tab1,'Style','text','units','normalized','Position',[0.01 0.04 0.09 0.02],'tag','StrNumSweeps','HorizontalAlignment','left','String',['Number of sweeps = ' num2str(Acc)]);

@@ -12,9 +12,9 @@ elseif strcmp(nametag,'B2Store')
 elseif strcmp(nametag,'B3Store')
     name_file = '1only';
 elseif strcmp(nametag,'B4Store')
-    name_file = 'User1';
+    name_file = panel.Bname_User1.String;
 elseif strcmp(nametag,'B5Store')
-    name_file = 'User2';
+    name_file = panel.Bname_User2.String;
 end
 
 name_file =[name_file '_Full'];

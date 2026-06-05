@@ -56,9 +56,14 @@ FileNamePrefix = panel.FileNamePrefix.String;
 FileNamePrefixChoice = panel.FileNamePrefixChoice.SelectedObject.String;
 FileNameUserPrefix = panel.FileNameUserPrefix.String;
 
+if strcmp(panel.FileNamePrefixChoice.SelectedObject.String, 'Date+Time')
+    panel.FileNamePrefix.String = GenDateTimeName(str2double(panel.RepeatScan.String));
+end
 %%
-nomSave = NameGen(Data_Path,FileNamePrefix,Save);
-panel.nameFile.String = ['File: ' nomSave];
+BuildName = NameGen(Data_Path,panel.FileNamePrefix.String);
+PrintName = GetSaveName(BuildName,Save);
+panel.nameFile.String = PrintName;
+
 %%
 
 if panel.start.Value ~=1 % do not update is scan is running
@@ -96,6 +101,7 @@ SensorTempC_Name = panel.SensorC_Name.String;
 SensorTempD_Name = panel.SensorD_Name.String;
 
 MagSweep = panel.MagSweep.Value;
+BSweepMin = str2double(panel.BSweepMin.String);
 BSweepMax = str2double(panel.BSweepMax.String);
 
 BxCoil = str2double(panel.BxCoil.String);
@@ -104,6 +110,13 @@ BzCoil = str2double(panel.BzCoil.String);
 XcoilCalib = str2double(panel.XcoilCalib.String);
 YcoilCalib = str2double(panel.YcoilCalib.String);
 ZcoilCalib = str2double(panel.ZcoilCalib.String);
+if panel.Bbutton.Value == 1
+    B_state = 'ON';
+else
+    B_state = 'OFF';
+end
+Bname_User1 = panel.Bname_User1.String;
+Bname_User2 = panel.Bname_User2.String;
 
 %%
 
@@ -111,7 +124,9 @@ SaveAcqParameters({{Data_Path,'Data_Path'},{Save,'Save'},{RandomFreq,'RandomFreq
     {AutoAlignCam,'AutoAlignCam'},{AutoAlignPiezo,'AutoAlignPiezo'},{RefreshMode,'RefreshMode'},{ReadTemp,'ReadTemp'},{FinishSweep,'FinishSweep'}, ...
     {FinishScan,'FinishScan'},...
     {MWPower,'MWPower'},{NumPoints,'NumPoints'},{NumSweeps,'NumSweeps'},{FCenter,'FCenter'},{DelEx,'DelEx'},{RFAlwaysON,'RFAlwaysON'},...
-    {FSpan,'FSpan'},{BackupNSweeps,'BackupNSweeps'},{RepeatScan,'RepeatScan'},{nomSave,'nomSave'},{CalibUnit_str,'CalibUnit_str'},...
+    {FSpan,'FSpan'},{BackupNSweeps,'BackupNSweeps'},{RepeatScan,'RepeatScan'},...
+    ...{nomSave,'nomSave'},...
+    {CalibUnit_str,'CalibUnit_str'},...
     {PixelCalib_nm,'PixelCalib_nm'},{ROISquareSize,'ROISquareSize'},...
     {PiezoX,'PiezoX'},{PiezoY,'PiezoY'},{PiezoZ,'PiezoZ'},{PiezoRangeX,'PiezoRangeX'},{PiezoRangeY,'PiezoRangeY'},{PiezoRangeZ,'PiezoRangeZ'},...
     {PiezoStepX,'PiezoStepX'},{PiezoStepY,'PiezoStepY'},{PiezoStepZ,'PiezoStepZ'},...
@@ -122,7 +137,9 @@ SaveAcqParameters({{Data_Path,'Data_Path'},{Save,'Save'},{RandomFreq,'RandomFreq
     {SensorTempA,'SensorTempA'},{SensorTempB,'SensorTempB'},{SensorTempA_Name,'SensorTempA_Name'},{SensorTempB_Name,'SensorTempB_Name'},...
     {SensorTempC,'SensorTempC'},{SensorTempD,'SensorTempD'},{SensorTempC_Name,'SensorTempC_Name'},{SensorTempD_Name,'SensorTempD_Name'},...
     {FileNamePrefix,'FileNamePrefix'},{FileNamePrefixChoice,'FileNamePrefixChoice'},{FileNameUserPrefix,'FileNameUserPrefix'},...
-    {MagSweep,'MagSweep'},{BSweepMax,'BSweepMax'},{BxCoil,'BxCoil'},{ByCoil,'ByCoil'},{BzCoil,'BzCoil'},{XcoilCalib,'XcoilCalib'},...
-    {YcoilCalib,'YcoilCalib'},{ZcoilCalib,'ZcoilCalib'}});
+    {MagSweep,'MagSweep'},{BSweepMin,'BSweepMin'},{BSweepMax,'BSweepMax'},{BxCoil,'BxCoil'},{ByCoil,'ByCoil'},{BzCoil,'BzCoil'},{XcoilCalib,'XcoilCalib'},{B_state,'B_state'},{Bname_User1,'Bname_User1'},{Bname_User2,'Bname_User2'},...
+    {YcoilCalib,'YcoilCalib'},{ZcoilCalib,'ZcoilCalib'} ...
+    {BuildName,'BuildName'},...
+    {PrintName,'PrintName'}});
 
 end
