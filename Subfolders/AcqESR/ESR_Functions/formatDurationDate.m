@@ -1,8 +1,7 @@
-function str = formatDuration(seconds)
-    seconds = round(seconds);  % arrondi à la seconde la plus proche
-    h = floor(seconds / 3600);
-    m = floor(mod(seconds, 3600) / 60);
-    s = mod(seconds, 60);
+function str = formatDurationDate(date)
+
+[h, m, s] = hms(date);
+s = round(s);
 
     parts = {};
     if h > 0
@@ -16,4 +15,5 @@ function str = formatDuration(seconds)
     end
 
     str = strjoin(parts, ' ');
+
 end

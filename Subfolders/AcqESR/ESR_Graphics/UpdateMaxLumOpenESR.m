@@ -8,8 +8,12 @@ if MaxLum <= 0
     panel.MaxLum.String = num2str(MaxLum);
 end
 
+panel.MaxLumAlwaysAuto.Value = 0;
+
 AOIParameters = panel.UserData.AOIParameters;
 
 UpdateMaxLumFunc(panel,AOIParameters);
+
+UpdateOpenESRParam();
 
 end

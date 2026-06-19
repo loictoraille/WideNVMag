@@ -89,6 +89,8 @@ FitParameters.full_upper_bound_auto = full_upper_bound_auto;
 
 FitParameters.VisuFit = panel.VisuFit.Value;
 
+FitParameters.MaxLumAlwaysAuto = panel.MaxLumAlwaysAuto.Value;
+
 save([getPath('Param') 'FitParameters.mat'],'FitParameters');
 
 

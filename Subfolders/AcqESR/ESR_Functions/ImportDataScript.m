@@ -59,6 +59,10 @@ if ~isfield(AcqParameters,'DisplayLight') || (isfield(AcqParameters,'DisplayLigh
     AcqParameters.DisplayLight = 0;
 end
 
+if ~isfield(AcqParameters,'MaxLumAlwaysAuto') || (isfield(AcqParameters,'MaxLumAlwaysAuto') && isnan(AcqParameters.MaxLumAlwaysAuto))
+    AcqParameters.MaxLumAlwaysAuto = 0;
+end
+
 if ~isfield(AcqParameters,'MaxLum') || (isfield(AcqParameters,'MaxLum') && isnan(AcqParameters.MaxLum))
     AcqParameters.MaxLum = 65535;
 end
@@ -101,9 +105,14 @@ save(file,'AcqParameters','-append')
 
 CheckAndUpdateAcqParameters(file,'none');
 
-load([getPath('Param') 'FitParameters.mat'],'FitParameters');
+% load(file,'AcqParameters');
+% No need to reload it afterwards because it's a global variable
 
-CheckAndUpdateFitParameters(file,'default');
+% load([getPath('Param') 'FitParameters.mat'],'FitParameters');
+
+FitParameters = CheckAndUpdateFitParameters(file,'default');
+
+OpenESRParameters = CheckAndUpdateOpenESRParameters('default');
 
 NumPeaks = FitParameters.NumPeaks;
 

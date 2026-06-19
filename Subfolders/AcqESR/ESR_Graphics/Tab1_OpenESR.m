@@ -6,14 +6,16 @@
 %%%%%%%%
 
 uicontrol('Parent',tab1,'Style', 'checkbox', 'String', 'Display light','units','normalized','tag','DisplayLight',...
-    'Position', [0.45 0.825 0.065 0.025],'FontSize',10,'Value',AcqParameters.DisplayLight,'Callback',@DisplayLightOpenESR,'Tooltip','If available, displays the image with light and laser instead of only with laser');
+    'Position', [0.45 0.825 0.065 0.025],'FontSize',10,'tag','DisplayLightOpenESR','Value',OpenESRParameters.DisplayLightOpenESR,'Callback',@DisplayLightOpenESR,'Tooltip','If available, displays the image with light and laser instead of only with laser');
 
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','center','Position',[0.457 0.785 0.035 0.025],'String','MaxLum');
-uicontrol('Parent',tab1,'Style','edit','tag','MaxLum','FontSize',10,'units','normalized','Position',[0.457 0.765 0.035 0.025],'String',num2str(AcqParameters.MaxLum),'Callback',@UpdateMaxLumOpenESR,...
+uicontrol('Parent',tab1,'Style','edit','tag','MaxLum','FontSize',10,'units','normalized','Position',[0.457 0.765 0.035 0.025],'String',num2str(OpenESRParameters.MaxLum),'Callback',@UpdateMaxLumOpenESR,...
     'Tooltip',['To modify maximum display value of camera' 10 'Peak and uEye saturate at 4095' 10 'Andor saturates at 65535' 10 'Heliotis saturates at ??']);
 
 uicontrol('Parent',tab1,'Style', 'pushbutton', 'String', 'Auto','units','normalized','tag','autoMaxLum',...
     'Position', [0.457 0.735 0.035 0.025],'FontSize',10,'Callback',@AutoMaxLumOpenESR,'Tooltip','Auto sets the MaxLum value to 1.05 times the max value observed');
+
+uicontrol('Parent',tab1,'Style', 'checkbox','units','normalized','tag','MaxLumAlwaysAuto','Position', [0.471 0.71 0.01 0.025],'Value',OpenESRParameters.MaxLumAlwaysAuto,'Callback',@DisplayLightOpenESR,'TooltipString','Tick to keep Max Lum in automatic mode');
 
 %%%%%%%%
 
@@ -207,6 +209,16 @@ r3_np = uicontrol(bg_np,'Style','radiobutton','units','normalized',...
               
 uicontrol('Parent',bg_np,'Style','text','FontSize',12,'units','normalized','Position',[0.01 0.3 0.3 0.5],'HorizontalAlignment','left','String','Peaks');
 
+
+%%%%%%%%%%%%
+%% B Field Panel
+%%%%%%%%%%%%
+
+BPanel = uipanel('Parent',tab1,'BorderType','none','Units','normalized','Position',[0.452 0.5 0.048 0.1],'Tag','BPanel','Visible','off');
+uicontrol('Parent',BPanel,'Style','text','Units','normalized','Position',[0 0.65 0.90 0.3],'HorizontalAlignment','left','Tag','BxCoilDisplay','String','BxCoil = 0 mT');
+uicontrol('Parent',BPanel,'Style','text','Units','normalized','Position',[0 0.37 0.90 0.3],'HorizontalAlignment','left','Tag','ByCoilDisplay','String','ByCoil = 0 mT');
+uicontrol('Parent',BPanel,'Style','text','Units','normalized','Position',[0 0.09 0.90 0.3],'HorizontalAlignment','left','Tag','BzCoilDisplay','String','BzCoil = 0 mT');
+
 %%%%%%%%%%%%%%%%%%
 %%Text Information
 %%%%%%%%%%%%%%%%%%
@@ -226,4 +238,10 @@ TextInfo8_Handle=uicontrol('Parent',tab1,'Style','text','units','normalized','Ho
 
 text(1.02,0.87,num2str(1),'FontSize',12,'Tag','lum1text','Units','Normalized','Parent',ax2,'Color','black');
 text(1.02,0.87,num2str(1),'FontSize',12,'Tag','lum0text','Units','Normalized','Parent',ax3,'Color','black');
+
+%%%%%%%%%%%%
+%% Open AcqParameters
+%%%%%%%%%%%%
+
+uicontrol('Parent', tab1,'Style', 'pushbutton', 'Fontsize',12,'String', '<html><center>View<br>Acq<br>Param</center></html>','Units', 'normalized','Position', [0.451 0.3 0.048 0.1], 'Callback', @OpenAcqParameters);
 

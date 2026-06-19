@@ -5,7 +5,7 @@ if exist('handleImage','var') && ~isempty(handleImage)
 
     panel = guidata(gcbo);
 
-    panel.MaxLumLive.Value = 1;
+    %panel.MaxLumLive.Value = 1; I don't see the point of this line
 
     MaxLum = str2double(panel.MaxLumLive.String);
     if MaxLum <= 0

@@ -38,7 +38,7 @@ load([getPath('Param') 'FitParameters.mat'],'FitParameters');
 ReadFitParameters;
 
 PlotpStart = 0; 
-i = 7;
+i = 7; %% index of the column in the xlxs file
 
 spectre = Full_spectra{i};
 spectre = PerformTreatmentOperations(spectre, v_MHz, Smoothing_Factor, Detrending_Factor, ClearFFT, RemPositive);

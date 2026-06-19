@@ -1,4 +1,4 @@
-function CheckAndUpdateFitParameters(File,String_Default_Value)
+function FitParameters = CheckAndUpdateFitParameters(File,String_Default_Value)
 
 % Function to load FitParameters and update it to the current list of parameters, adding default when a parameter is absent
 % The goal is that the user only needs to copy paste their parameter file and keep their configuration this way

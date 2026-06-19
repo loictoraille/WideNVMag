@@ -92,40 +92,40 @@ uicontrol('Parent',tab2,'Style', 'pushbutton', 'String', 'Maximize Speed','units
 %%Sliders
 %%%%%%%%%
 %% Exposure time
-Sld_Exp=uicontrol('Parent',tab2,'Style','slider','Min',1,'Max',100,'Value',50,'tag','sldexp','units','normalized','Position', [0.73 0.75 0.2 0.05],'Callback',@SldExp);
-expmin=uicontrol('Parent',tab2,'Style','text','string',1,'FontSize',10, 'tag','expmin','units','normalized','Position', [0.67 0.76 0.05 0.03],'HorizontalAlignment','right');
-expmax=uicontrol('Parent',tab2,'Style','text','string',100,'FontSize',10,'tag','expmax','units','normalized','Position', [0.94 0.76 0.05 0.03],'HorizontalAlignment','left');
-exptxt=uicontrol('Parent',tab2,'Style','text','string','Exposure','FontSize',15,'tag','exptext','units','normalized','Position', [0.73 0.82 0.2 0.03]);
+Sld_Exp=uicontrol('Parent',tab2,'Style','slider','Min',1,'Max',100,'Value',50,'tag','sldexp','units','normalized','Position', [0.75 0.75 0.2 0.05],'Callback',@SldExp);
+expmin=uicontrol('Parent',tab2,'Style','text','string',1,'FontSize',10, 'tag','expmin','units','normalized','Position', [0.69 0.755 0.05 0.03],'HorizontalAlignment','right');
+expmax=uicontrol('Parent',tab2,'Style','text','string',100,'FontSize',10,'tag','expmax','units','normalized','Position', [0.96 0.755 0.05 0.03],'HorizontalAlignment','left');
+exptxt=uicontrol('Parent',tab2,'Style','text','string','Exposure','FontSize',15,'tag','exptext','units','normalized','Position', [0.75 0.82 0.2 0.03]);
 lh=addlistener(Sld_Exp,'Value','PreSet',@ExpUpdate); % Listener to update slider value on the fly / camera exposure time is only updated when slider is released
 
-exp_input=uicontrol('Parent',tab2,'Style','edit','tag','Input_Exp','FontSize',10,'units','normalized','Position',[0.817 0.715 0.025 0.025],'String',num2str(0.15),'Callback',@Input_Exposure);
+exp_input=uicontrol('Parent',tab2,'Style','edit','tag','Input_Exp','FontSize',10,'units','normalized','Position',[0.837 0.715 0.025 0.025],'String',num2str(0.15),'Callback',@Input_Exposure);
 
 %% Frame Rate
-Sld_FrameRate=uicontrol('Parent',tab2,'Style','slider','Min',1,'Max',100,'Value',50,'tag','sldframe','units','normalized','Position', [0.73 0.55 0.2 0.05],'Callback',@SldFra);
-framin=uicontrol('Parent',tab2,'Style','text','string',1,'FontSize',10,'tag','framin','units','normalized','Position', [0.67 0.56 0.05 0.03],'HorizontalAlignment','right');
-framax=uicontrol('Parent',tab2,'Style','text','string',100,'FontSize',10,'tag','framax','units','normalized','Position', [0.94 0.56 0.05 0.03],'HorizontalAlignment','left');
-fratxt=uicontrol('Parent',tab2,'Style','text','string','Frame Rate','FontSize',15,'tag','fratext','units','normalized','Position', [0.73 0.62 0.2 0.03]);
+Sld_FrameRate=uicontrol('Parent',tab2,'Style','slider','Min',1,'Max',100,'Value',50,'tag','sldframe','units','normalized','Position', [0.75 0.55 0.2 0.05],'Callback',@SldFra);
+framin=uicontrol('Parent',tab2,'Style','text','string',1,'FontSize',10,'tag','framin','units','normalized','Position', [0.69 0.555 0.05 0.03],'HorizontalAlignment','right');
+framax=uicontrol('Parent',tab2,'Style','text','string',100,'FontSize',10,'tag','framax','units','normalized','Position', [0.96 0.555 0.05 0.03],'HorizontalAlignment','left');
+fratxt=uicontrol('Parent',tab2,'Style','text','string','Frame Rate','FontSize',15,'tag','fratext','units','normalized','Position', [0.75 0.62 0.2 0.03]);
 lh2=addlistener(Sld_FrameRate,'Value','PreSet',@FraUpdate);% Listener to update slider value on the fly / camera Frame Rate is only updated when slider is released
 
-framerate_input=uicontrol('Parent',tab2,'Style','edit','tag','Input_FrameRate','FontSize',10,'units','normalized','Position',[0.817 0.515 0.025 0.025],'String',num2str(0.15),'Callback',@Input_FrameRate);
+framerate_input=uicontrol('Parent',tab2,'Style','edit','tag','Input_FrameRate','FontSize',10,'units','normalized','Position',[0.837 0.515 0.025 0.025],'String',num2str(0.15),'Callback',@Input_FrameRate);
 
 
 %% PixelClock
-Sld_PixClock=uicontrol('Parent',tab2,'Style','slider','Min',1,'Max',100,'Value',50,'tag','sldpix','units','normalized','Position', [0.73 0.35 0.2 0.05],'Callback',@SldPix);
-pixmin=uicontrol('Parent',tab2,'Style','text','string',1,'FontSize',10,'tag','pixmin','units','normalized','Position', [0.67 0.36 0.05 0.03],'HorizontalAlignment','right');
-pixmax=uicontrol('Parent',tab2,'Style','text','string',100,'FontSize',10,'tag','pixmax','units','normalized','Position', [0.94 0.36 0.05 0.03],'HorizontalAlignment','left');
-pixtxt=uicontrol('Parent',tab2,'Style','text','string','Pixel Clock','FontSize',15,'tag','pixtext','units','normalized','Position', [0.73 0.42 0.2 0.03]);
+Sld_PixClock=uicontrol('Parent',tab2,'Style','slider','Min',1,'Max',100,'Value',50,'tag','sldpix','units','normalized','Position', [0.75 0.35 0.2 0.05],'Callback',@SldPix);
+pixmin=uicontrol('Parent',tab2,'Style','text','string',1,'FontSize',10,'tag','pixmin','units','normalized','Position', [0.69 0.355 0.05 0.03],'HorizontalAlignment','right');
+pixmax=uicontrol('Parent',tab2,'Style','text','string',100,'FontSize',10,'tag','pixmax','units','normalized','Position', [0.96 0.355 0.05 0.03],'HorizontalAlignment','left');
+pixtxt=uicontrol('Parent',tab2,'Style','text','string','Pixel Clock','FontSize',15,'tag','pixtext','units','normalized','Position', [0.75 0.42 0.2 0.03]);
 lh3=addlistener(Sld_PixClock,'Value','PreSet',@PixUpdate);% Listener to update slider value on the fly / camera PixelClock is only updated when slider is released
 
-pixelclock_input=uicontrol('Parent',tab2,'Style','edit','tag','Input_PixelClock','FontSize',10,'units','normalized','Position',[0.817 0.315 0.025 0.025],'String',num2str(0.15),'Callback',@Input_PixelClock);
+pixelclock_input=uicontrol('Parent',tab2,'Style','edit','tag','Input_PixelClock','FontSize',10,'units','normalized','Position',[0.837 0.315 0.025 0.025],'String',num2str(0.15),'Callback',@Input_PixelClock);
 
 
 %% Piezo control
 uicontrol('Parent', tab2, 'Style', 'text', 'units', 'normalized', ...
     'FontSize', 16, 'FontWeight', 'bold', 'HorizontalAlignment', 'left', ...
-    'Position', [0.593 0.72 0.1 0.03], 'String', 'Piezo Control', 'tag', 'PiezoControlText');
+    'Position', [0.603 0.72 0.1 0.03], 'String', 'Piezo Control', 'tag', 'PiezoControlText');
 
-panelpiezo = uipanel('Parent', tab2, 'Position', [0.58, 0.52, 0.1, 0.2], 'tag', 'PiezoControlPanel');
+panelpiezo = uipanel('Parent', tab2, 'Position', [0.565, 0.52, 0.145, 0.2], 'tag', 'PiezoControlPanel');
 
 uicontrol('Parent', panelpiezo, 'Style', 'togglebutton', 'tag', 'switchpiezo', ...
     'ForegroundColor', [0, 0, 0], 'Value', 0, 'String', 'Init Piezo', ...
@@ -135,60 +135,76 @@ uicontrol('Parent', panelpiezo, 'Style', 'togglebutton', 'tag', 'switchpiezo', .
 
 FS2 = 11;
 
-% Row 1: X, Y, Z 
+% Row 1: X, Y, Z
+
 editPosition = [0.04, 0.6, 0.28, 0.15];
+arrowWidthShift = -0.2;
+
+% Row 1: X, Y, Z 
 uicontrol('Parent', panelpiezo, 'Style', 'text', 'FontSize', FS2, 'units', 'normalized', ...
     'String', 'X', 'Position', editPosition + [0, 0.1, 0, 0], 'tag', 'piezoXString');
+uicontrol('Parent', panelpiezo, 'Style', 'pushbutton','Units', 'normalized','String', '<',...
+    'Position', editPosition + [-0.03, 0, arrowWidthShift, 0], 'Callback', @(~,~) StepPiezo('X',-1));
 uicontrol('Parent', panelpiezo, 'Style', 'edit', 'FontSize', FS2, 'units', 'normalized', 'TooltipString','X is contained between -10V and 10V', ...
-    'Position', editPosition, 'tag', 'piezoX', 'String', num2str(AcqParameters.PiezoX), 'Callback', @UpdatePiezo);
+    'Position', editPosition + [0.05, 0, -0.1, 0], 'tag', 'piezoX', 'String', num2str(AcqParameters.PiezoX), 'Callback', @UpdatePiezo);
+uicontrol('Parent', panelpiezo, 'Style', 'pushbutton','Units', 'normalized','String', '>',...
+    'Position', editPosition + [0.23, 0, arrowWidthShift, 0], 'Callback', @(~,~) StepPiezo('X',+1));
 
 uicontrol('Parent', panelpiezo, 'Style', 'text', 'FontSize', FS2, 'units', 'normalized', ...
     'String', 'Y', 'Position', editPosition + [0.32, 0.1, 0, 0], 'tag', 'piezoYString');
+uicontrol('Parent', panelpiezo, 'Style', 'pushbutton','Units', 'normalized','String', '<',...
+    'Position', editPosition + [0.29, 0, arrowWidthShift, 0], 'Callback', @(~,~) StepPiezo('Y',-1));
 uicontrol('Parent', panelpiezo, 'Style', 'edit', 'FontSize', FS2, 'units', 'normalized', 'TooltipString','Y is contained between -10V and 10V', ...
-    'Position', editPosition + [0.32, 0, 0, 0], 'tag', 'piezoY', 'String', num2str(AcqParameters.PiezoY), 'Callback', @UpdatePiezo);
+    'Position', editPosition + [0.37, 0, -0.1, 0], 'tag', 'piezoY', 'String', num2str(AcqParameters.PiezoY), 'Callback', @UpdatePiezo);
+uicontrol('Parent', panelpiezo, 'Style', 'pushbutton','Units', 'normalized','String', '>',...
+    'Position', editPosition + [0.55, 0, arrowWidthShift, 0], 'Callback', @(~,~) StepPiezo('Y',+1));
 
 uicontrol('Parent', panelpiezo, 'Style', 'text', 'FontSize', FS2, 'units', 'normalized', ...
     'String', 'Z', 'Position', editPosition + [0.64, 0.1, 0, 0], 'tag', 'piezoZString');
+uicontrol('Parent', panelpiezo, 'Style', 'pushbutton','Units', 'normalized','String', '<',...
+    'Position', editPosition + [0.61, 0, arrowWidthShift, 0], 'Callback', @(~,~) StepPiezo('Z',-1));
 uicontrol('Parent', panelpiezo, 'Style', 'edit', 'FontSize', FS2, 'units', 'normalized', 'TooltipString','Z is contained between 0V and 10V', ...
-    'Position', editPosition + [0.64, 0, 0, 0], 'tag', 'piezoZ', 'String', num2str(AcqParameters.PiezoZ), 'Callback', @UpdatePiezo);
+    'Position', editPosition + [0.69, 0, -0.1, 0], 'tag', 'piezoZ', 'String', num2str(AcqParameters.PiezoZ), 'Callback', @UpdatePiezo);
+uicontrol('Parent', panelpiezo, 'Style', 'pushbutton','Units', 'normalized','String', '>',...
+    'Position', editPosition + [0.87, 0, arrowWidthShift, 0], 'Callback', @(~,~) StepPiezo('Z',+1));
 
 % Row 2: RangeX, RangeY, RangeZ 
 PositionRow2 = [0.04, 0.32, 0.28, 0.15];
 uicontrol('Parent', panelpiezo, 'Style', 'text', 'FontSize', FS2, 'units', 'normalized', ...
     'String', 'RangeX', 'Position', PositionRow2 + [0, 0.1, 0.02, 0], 'tag', 'piezoRangeXString');
 uicontrol('Parent', panelpiezo, 'Style', 'edit', 'FontSize', FS2, 'units', 'normalized','TooltipString','Range over which X will be scanned for auto alignment', ...
-    'Position', PositionRow2 + [0, 0, 0, 0], 'tag', 'piezoRangeX', 'String', num2str(AcqParameters.PiezoRangeX), 'Callback', @UpdateAcqParam);
+    'Position', PositionRow2 + [0.05, 0, -0.1, 0], 'tag', 'piezoRangeX', 'String', num2str(AcqParameters.PiezoRangeX), 'Callback', @UpdateAcqParam);
 
 uicontrol('Parent', panelpiezo, 'Style', 'text', 'FontSize', FS2, 'units', 'normalized', ...
     'String', 'RangeY', 'Position', PositionRow2 + [0.32, 0.1, 0.02, 0], 'tag', 'piezoRangeYString');
 uicontrol('Parent', panelpiezo, 'Style', 'edit', 'FontSize', FS2, 'units', 'normalized', 'TooltipString','Range over which Y will be scanned for auto alignment', ...
-    'Position', PositionRow2 + [0.32, 0, 0, 0], 'tag', 'piezoRangeY', 'String', num2str(AcqParameters.PiezoRangeY), 'Callback', @UpdateAcqParam);
+    'Position', PositionRow2 + [0.37, 0, -0.1, 0], 'tag', 'piezoRangeY', 'String', num2str(AcqParameters.PiezoRangeY), 'Callback', @UpdateAcqParam);
 
 uicontrol('Parent', panelpiezo, 'Style', 'text', 'FontSize', FS2, 'units', 'normalized', ...
     'String', 'RangeZ', 'Position', PositionRow2 + [0.64, 0.1, 0.02, 0], 'tag', 'piezoRangeZString');
 uicontrol('Parent', panelpiezo, 'Style', 'edit', 'FontSize', FS2, 'units', 'normalized', 'TooltipString','Range over which Z will be scanned for auto alignment', ...
-    'Position', PositionRow2 + [0.64, 0, 0, 0], 'tag', 'piezoRangeZ', 'String', num2str(AcqParameters.PiezoRangeZ), 'Callback', @UpdateAcqParam);
+    'Position', PositionRow2 + [0.69, 0, -0.1, 0], 'tag', 'piezoRangeZ', 'String', num2str(AcqParameters.PiezoRangeZ), 'Callback', @UpdateAcqParam);
 
 % Row 3: StepX, StepY, StepZ 
 PositionRow3 = [0.04, 0.02, 0.28, 0.15];
 uicontrol('Parent', panelpiezo, 'Style', 'text', 'FontSize', FS2, 'units', 'normalized', ...
     'String', 'StepX', 'Position', PositionRow3 + [0, 0.1, 0, 0], 'tag', 'piezoStepXString');
 uicontrol('Parent', panelpiezo, 'Style', 'edit', 'FontSize', FS2, 'units', 'normalized','TooltipString','Number of X steps taken inside the defined range during the auto alignement',...
-    'Position', PositionRow3, 'tag', 'piezoStepX', 'String', num2str(AcqParameters.PiezoStepX), 'Callback', @UpdateAcqParam);
+    'Position', PositionRow3 + [0.05, 0, -0.1, 0], 'tag', 'piezoStepX', 'String', num2str(AcqParameters.PiezoStepX), 'Callback', @UpdateAcqParam);
 
 uicontrol('Parent', panelpiezo, 'Style', 'text', 'FontSize', FS2, 'units', 'normalized', ...
     'String', 'StepY', 'Position', PositionRow3 + [0.32, 0.1, 0, 0], 'tag', 'piezoStepYString');
 uicontrol('Parent', panelpiezo, 'Style', 'edit', 'FontSize', FS2, 'units', 'normalized', 'TooltipString','Number of Y steps taken inside the defined range during the auto alignement',...
-    'Position', PositionRow3 + [0.32, 0, 0, 0], 'tag', 'piezoStepY', 'String', num2str(AcqParameters.PiezoStepY), 'Callback', @UpdateAcqParam);
+    'Position', PositionRow3 + [0.37, 0, -0.1, 0], 'tag', 'piezoStepY', 'String', num2str(AcqParameters.PiezoStepY), 'Callback', @UpdateAcqParam);
 
 uicontrol('Parent', panelpiezo, 'Style', 'text', 'FontSize', FS2, 'units', 'normalized', ...
     'String', 'StepZ', 'Position', PositionRow3 + [0.64, 0.1, 0, 0], 'tag', 'piezoStepZString');
 uicontrol('Parent', panelpiezo, 'Style', 'edit', 'FontSize', FS2, 'units', 'normalized', 'TooltipString','Number of Z steps taken inside the defined range during the auto alignement',...
-    'Position', PositionRow3 + [0.64, 0, 0, 0], 'tag', 'piezoStepZ', 'String', num2str(AcqParameters.PiezoStepZ), 'Callback', @UpdateAcqParam);
+    'Position', PositionRow3 + [0.69, 0, -0.1, 0], 'tag', 'piezoStepZ', 'String', num2str(AcqParameters.PiezoStepZ), 'Callback', @UpdateAcqParam);
 
 %% Calib Piezo
-calibPanelTitle = uicontrol('Parent',tab2,'Style','text','units','normalized','FontSize',16,'FontWeight','bold','HorizontalAlignment','left','Position', [0.593 0.48 0.1 0.03],'String','Calib (um/10V)','tag','calibPiezoPanelTitle');
-calibPanel = uipanel('Parent',tab2,'Position',[0.61, 0.38, 0.05, 0.1],'tag','calibPiezoPanel');
+calibPanelTitle = uicontrol('Parent',tab2,'Style','text','units','normalized','FontSize',14,'FontWeight','bold','HorizontalAlignment','left','Position', [0.57 0.48 0.1 0.03],'String','Calib (um/10V)','tag','calibPiezoPanelTitle');
+calibPanel = uipanel('Parent',tab2,'Position',[0.58, 0.38, 0.05, 0.1],'tag','calibPiezoPanel');
 
 % Define font size
 FS2 = 11;
@@ -209,7 +225,12 @@ uicontrol('Parent',calibPanel, 'Style', 'edit','FontSize',12,'units','normalized
 uicontrol('Parent',calibPanel, 'Style', 'text','FontSize',12,'units','normalized','FontSize',FS2, 'String', 'Z', 'Position', calibTextPosition - [0, 0.6, 0, 0],'tag','calibPiezoZText');
 uicontrol('Parent',calibPanel, 'Style', 'edit','FontSize',12,'units','normalized','FontSize',FS2, 'Position', calibEditPosition - [0, 0.6, 0, 0], 'tag','calibPiezoZ', 'String',num2str(AcqParameters.CalibPiezoZ),'Callback',@UpdateAcqParam);
 
-uicontrol('Parent',tab2,'Style', 'checkbox', 'String', 'Reset values upon exit','units','normalized','tag','ResetPiezo','Position', [0.586 0.35 0.1 0.025],'FontSize',11,'Value',AcqParameters.ResetPiezo,'Callback',@UpdateAcqParam,'TooltipString','Reset all four NI card outputs to 0V when closing the program window');
+uicontrol('Parent',tab2,'Style', 'checkbox', 'String', 'Reset piezos upon exit','units','normalized','tag','ResetPiezo','Position', [0.586 0.35 0.1 0.025],'FontSize',11,'Value',AcqParameters.ResetPiezo,'Callback',@UpdateAcqParam,'TooltipString','Reset all four NI card outputs to 0V when closing the program window');
+
+%% Sweep Piezo
+
+uicontrol('Parent',tab2, 'Style','pushbutton','String','X sweep', 'units','normalized','FontSize',14, 'Position', [0.645, 0.435, 0.05, 0.04],'tag','PiezoXSweep', 'Callback', @(~,~) StartPiezoSweep('X'));
+uicontrol('Parent',tab2, 'Style','pushbutton','String','Y sweep', 'units','normalized','FontSize',14, 'Position', [0.645, 0.385, 0.05, 0.04],'tag','PiezoYSweep', 'Callback', @(~,~) StartPiezoSweep('Y'));
 
 %% Text
 
@@ -246,4 +267,6 @@ uicontrol('Parent',tab2,'Style','edit','tag','MaxLumLive','FontSize',10,'units',
     'Tooltip',['To modify maximum display value of camera' 10 'Peak and uEye saturate at 4095' 10 'Andor saturates at 65535' 10 'Heliotis saturates at ??']);
 uicontrol('Parent',tab2,'Style', 'pushbutton', 'String', 'Auto','units','normalized','tag','autoMaxLumLive',...
     'Position', [0.65 0.77 0.035 0.025],'FontSize',10,'Callback',@AutoMaxLumLive,'Tooltip','Auto sets the MaxLum value to 1.05 times the max value observed');
+uicontrol('Parent',tab2,'Style', 'checkbox','units','normalized','tag','MaxLumLiveAlwaysAuto','Position', [0.69 0.77 0.015 0.025],'Value',AcqParameters.MaxLumAlwaysAuto,'Callback',@UpdateMaxLumLiveAlwaysAuto,'TooltipString','Tick to keep Max Lum in automatic mode');
+
 

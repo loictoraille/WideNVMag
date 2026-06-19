@@ -1,16 +1,25 @@
 function UpdateMaxLumFunc(panel,AOIParameters)
 
-DisplayLight = panel.DisplayLight.Value;
+if isfield(panel,'DisplayLight')
+    DisplayLight = panel.DisplayLight.Value;
+else
+    DisplayLight = panel.DisplayLightOpenESR.Value;
+end
+
 MaxLum = str2double(panel.MaxLum.String);
+MaxLumAlwaysAuto = panel.MaxLumAlwaysAuto.Value;
 
 if (isnan(DisplayLight) || DisplayLight == 0) && isfield(panel,'UserData') && isfield(panel.UserData,'Lum_Current') && ~isempty(panel.UserData.Lum_Current)
     LumToPlot = panel.UserData.Lum_Current;
-    PrintImage(panel.Axes1,LumToPlot,AOIParameters,MaxLum);    
+    MaxLum = PrintImage(panel.Axes1,LumToPlot,AOIParameters,MaxLum,MaxLumAlwaysAuto);  
 end
 if ~isnan(DisplayLight) && DisplayLight && isfield(panel,'UserData') && isfield(panel.UserData,'Lum_WithLightAndLaser') && ~isempty(panel.UserData.Lum_WithLightAndLaser)
     LumToPlot = panel.UserData.Lum_WithLightAndLaser;
-    PrintImage(panel.Axes1,LumToPlot,AOIParameters,MaxLum);
+    MaxLum = PrintImage(panel.Axes1,LumToPlot,AOIParameters,MaxLum,MaxLumAlwaysAuto);
 end
+
+panel.MaxLum.String = num2str(MaxLum);
+panel.MaxLumLive.String = num2str(MaxLum);
 
 % PixX = str2num(panel.PixX.String);    
 % PixY = str2num(panel.PixY.String);  

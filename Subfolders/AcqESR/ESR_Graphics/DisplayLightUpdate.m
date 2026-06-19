@@ -6,6 +6,7 @@ panel = guidata(gcbo);
 
 load([getPath('Param') 'AcqParameters.mat']);
 MaxLum = AcqParameters.MaxLum;
+MaxLumAlwaysAuto = AcqParameters.MaxLumAlwaysAuto;
 
 LightControl = 0;
 if DisplayLight
@@ -31,13 +32,16 @@ if LightControl == 0
     hobject.Value = 0;
 
     if isfield(panel,'UserData') && isfield(panel.UserData,'Lum_Current') && ~isempty(panel.UserData.Lum_Current)
-        PrintImage(panel.Axes1,panel.UserData.Lum_Current,AOIParameters,MaxLum);
+        MaxLum = PrintImage(panel.Axes1,panel.UserData.Lum_Current,AOIParameters,MaxLum,MaxLumAlwaysAuto);
     end
 else
     if isfield(panel,'UserData') && isfield(panel.UserData,'Lum_WithLightAndLaser') && ~isempty(panel.UserData.Lum_WithLightAndLaser)
-        PrintImage(panel.Axes1,panel.UserData.Lum_WithLightAndLaser,AOIParameters,MaxLum);
+        MaxLum = PrintImage(panel.Axes1,panel.UserData.Lum_WithLightAndLaser,AOIParameters,MaxLum,MaxLumAlwaysAuto);
     end
 end
+
+panel.MaxLum.String = num2str(MaxLum);
+panel.MaxLumLive.String = num2str(MaxLum);
 
 
 end

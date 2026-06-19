@@ -10,7 +10,7 @@ LIGHT = 1; % lumiere allumee pendant les procedures d'alignement PerformAlignPie
 panel=guidata(gcbo);
 
 if TotalScan > 1 && i_scan > 1
-    rem_time_all = (TotalScan-i_scan)*time_one_scan;
+    rem_time_all = (TotalScan-i_scan+1)*time_one_scan;
     panel.AcqTime.String = [newline 'Total Remaining = ' formatDuration(rem_time_all)];
 else
     panel.AcqTime.String = '';
@@ -93,7 +93,7 @@ UpdateStrSizeM(ROIWidth,ROIHeight,Ftot);
 
 %% PerformAlignPiezo
 
-if ~TestWithoutHardware && AutoAlignPiezo && i_scan > 1 && i_scan < TotalScan
+if ~TestWithoutHardware && AutoAlignPiezo && i_scan > 1 && i_scan < TotalScan+1
     if panel.stop.Value~=1
         if panel.LaserShutter.Value == 1 %% check if laser shutter option is checked in tab additional
             PerformAlignPiezo;
@@ -190,10 +190,13 @@ if ~exist('Lum_Initial','var')
 end
 
 if panel.DisplayLight.Value
-    PrintImage(panel.Axes1,Lum_WithLightAndLaser,AOIParameters,str2double(panel.MaxLum.String));
+    MaxLum = PrintImage(panel.Axes1,Lum_WithLightAndLaser,AOIParameters,str2double(panel.MaxLum.String),panel.MaxLumAlwaysAuto.Value);
 else
-    PrintImage(panel.Axes1,Lum_Start,AOIParameters,str2double(panel.MaxLum.String));
+    MaxLum = PrintImage(panel.Axes1,Lum_Start,AOIParameters,str2double(panel.MaxLum.String),panel.MaxLumAlwaysAuto.Value);
 end
+
+panel.MaxLum.String = num2str(MaxLum);
+panel.MaxLumLive.String = num2str(MaxLum);
 
 panel.UserData.Lum_Current = Lum_Start; % not exactly the same image potentially but simpler for now
 guidata(gcbo,panel);
@@ -479,11 +482,13 @@ for Acc=1:(AccNumber+99*ALIGN*AccNumber) %Loop on Accumulation number
                 LightOff(panel);% to turn off the light for the scan part
                 [I,ISize,AOI] = PrepareCamera();
             end
-            PrintImage(panel.Axes1,Lum_WithLightAndLaser,AOIParameters,str2double(panel.MaxLum.String));
+            MaxLum = PrintImage(panel.Axes1,Lum_WithLightAndLaser,AOIParameters,str2double(panel.MaxLum.String),panel.MaxLumAlwaysAuto.Value);
         else
             panel.UserData.Lum_Current = Lum_Current;
-            PrintImage(panel.Axes1,Lum_Current,AOIParameters,str2double(panel.MaxLum.String));
+            MaxLum = PrintImage(panel.Axes1,Lum_Current,AOIParameters,str2double(panel.MaxLum.String),panel.MaxLumAlwaysAuto.Value);
         end
+        panel.MaxLum.String = num2str(MaxLum);
+        panel.MaxLumLive.String = num2str(MaxLum);
     end
     
     guidata(gcbo,panel);
@@ -499,8 +504,8 @@ for Acc=1:(AccNumber+99*ALIGN*AccNumber) %Loop on Accumulation number
     
     rem_time = (AccNumber-Acc)*time_one_sweep;
     if TotalScan > 1 && i_scan > 1
-        rem_time_all = (TotalScan-i_scan)*time_one_scan;
-        panel.AcqTime.String = ['Remaining time = ' formatDuration(rem_time) newline 'Total = ' formatDuration(rem_time_all)];
+        rem_time_all = (TotalScan-i_scan+1)*time_one_scan;
+        panel.AcqTime.String = ['Remaining time = ' formatDuration(rem_time) newline 'Total Remaining = ' formatDuration(rem_time_all)];
     else
         panel.AcqTime.String = ['Remaining time = ' formatDuration(rem_time)];
     end
@@ -517,11 +522,10 @@ endTime = datetime('now'); % Capture l'heure de fin
 elapsedTime = endTime - startTime; % Calcule la duree ecoulee
 
 AcquisitionTime_minutes = round(endacq/60);
-[h, m, s] = hms(elapsedTime);
-disp(['Scan lasted: ', num2str(floor(h)), 'h ', num2str(floor(m)), 'm ', num2str(round(s)), 's']);
+disp(['Scan lasted: ' formatDurationDate(elapsedTime)]);
 
-if TotalScan > 1 && i_scan > 1
-    rem_time_all = (TotalScan-i_scan)*time_one_scan;
+if TotalScan > 1 && i_scan > 1 && i_scan ~= TotalScan
+    rem_time_all = (TotalScan-i_scan+1)*time_one_scan;
     panel.AcqTime.String = ['Acquisition time = ' formatDuration(endacq) newline 'Total Remaining = ' formatDuration(rem_time_all)];
 else
     panel.AcqTime.String = ['Acquisition time = ' formatDuration(endacq)];

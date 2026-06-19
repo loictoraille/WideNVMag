@@ -102,6 +102,9 @@ uicontrol('Parent',tab1,'Style','edit','tag','MaxLum','FontSize',10,'units','nor
 uicontrol('Parent',tab1,'Style', 'pushbutton', 'String', 'Auto','units','normalized','tag','autoMaxLum',...
     'Position', [0.457 0.735 0.035 0.025],'FontSize',10,'Callback',@AutoMaxLum,'Tooltip','Auto sets the MaxLum value to 1.05 times the max value observed');
 
+uicontrol('Parent',tab1,'Style', 'checkbox','units','normalized','tag','MaxLumAlwaysAuto','Position', [0.47 0.71 0.01 0.025],'Value',AcqParameters.MaxLumAlwaysAuto,'Callback',@UpdateMaxLumAlwaysAuto,'TooltipString','Tick to keep Max Lum in automatic mode');
+
+
 %%%%%%%%
 %%Graphs
 %%%%%%%%
@@ -187,7 +190,7 @@ uicontrol('Parent',tab1,'Style','text','units','normalized','Position',[0.15 0.1
 Bin_handle=uicontrol('Parent',tab1,'Style','edit','tag','Bin_txt','units','normalized','Position',[0.15 0.11 0.05 0.05],'String',num2str(StartingBin),'Tooltip','side of the binning square if BinThr < 100 ; else automatic binning using BinThr as a target luminescence threshold (more info in extractEsrThr)','Callback',@Input_Pixels);
 %Temperature 
 uicontrol('Parent',tab1,'Style','text','units','normalized','Position',[0.22 0.15 0.05 0.05],'String','Temperature');
-uicontrol('Parent',tab1,'Style','text','tag','Temp_txt','units','normalized','Position',[0.22 0.1  0.05 0.05],'String','-');
+uicontrol('Parent',tab1,'Style','text','tag','Temp_txt','units','normalized','Position',[0.22 0.10  0.05 0.07],'String','-');
 
 % Num Peaks
 bg_np = uibuttongroup('Parent',tab1,'units','normalized',...
@@ -223,8 +226,8 @@ uicontrol('Parent',bg_np,'Style','text','FontSize',12,'units','normalized','Posi
 BuildName = NameGen(AcqParameters.Data_Path,AcqParameters.FileNamePrefix);
 PrintName = GetSaveName(BuildName,AcqParameters.Save);
 uicontrol('Parent',tab1,'Style','text','tag','nameFile','units','normalized','FontSize',16,'HorizontalAlignment','left','FontWeight','bold','Position',[0.01 0.21 0.24 0.05],'String',PrintName);
-uicontrol('Parent',tab1,'Style','text','tag','numberSweep','units','normalized','FontSize',12,'HorizontalAlignment','right','Position',[0.13 0.06 0.13 0.03],'String',['Sweep number /' num2str(AcqParameters.NumSweeps)]);
-uicontrol('Parent',tab1,'Style','text','tag','numberFreq','units','normalized','FontSize',12,'HorizontalAlignment','right','Position',[0.13 0.03 0.13 0.03],'String',['Freq number /' num2str(AcqParameters.NumPoints)]);
+uicontrol('Parent',tab1,'Style','text','tag','numberSweep','units','normalized','FontSize',12,'HorizontalAlignment','right','Position',[0.13 0.06 0.13 0.02],'String',['Sweep number /' num2str(AcqParameters.NumSweeps)]);
+uicontrol('Parent',tab1,'Style','text','tag','numberFreq','units','normalized','FontSize',12,'HorizontalAlignment','right','Position',[0.13 0.03 0.13 0.02],'String',['Freq number /' num2str(AcqParameters.NumPoints)]);
 
 uicontrol('Parent',tab1,'Style','text','tag','sizeM','units','normalized','FontSize',12,'HorizontalAlignment','left','Position',[0.01 0.06 0.15 .03],'String','Size of M : (w,h,v) = (,,)');
 

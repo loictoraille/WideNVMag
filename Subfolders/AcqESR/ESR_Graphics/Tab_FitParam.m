@@ -1,5 +1,5 @@
 %%Elements of tab Fit Parameters
-load([getPath('Param') 'FitParameters.mat'],'FitParameters');
+
 %% Paths
 
 uicontrol('Parent',tab_fitparam,'Style','text','units','normalized','FontSize',16,'HorizontalAlignment','left','FontWeight','bold','Position',[0.01 0.92 0.1 0.04],'String','DataPath');
