@@ -2,7 +2,7 @@ function AutoMaxLumOpenESR(~,~)
 
 panel = guidata(gcbo);
 
-DisplayLight = panel.DisplayLight.Value;
+DisplayLight = panel.DisplayLightOpenESR.Value;
 
 if (isnan(DisplayLight) || DisplayLight == 0) && isfield(panel,'UserData') && isfield(panel.UserData,'Lum_Current') && ~isempty(panel.UserData.Lum_Current)
     LumToPlot = panel.UserData.Lum_Current;

@@ -6,6 +6,7 @@ NI_card = daq("ni");
 daq_list = daqlist;
 
 
+
 addoutput(NI_card, daq_list.DeviceID(1), "ao0", "Voltage"); % X
 addoutput(NI_card, daq_list.DeviceID(1), "ao1", "Voltage"); % Y
 addoutput(NI_card, daq_list.DeviceID(1), "ao2", "Voltage"); % Z

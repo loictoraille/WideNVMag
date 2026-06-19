@@ -6,7 +6,7 @@ load([getPath('Param') 'AcqParameters.mat'],'AcqParameters');
 
 
 if strcmpi(SetupType,"CEA") 
-    ListUselessSettings = {};
+    ListUselessSettings = {'piezoLightValue'};
 elseif strcmpi(SetupType,"ENS1")
     ListUselessSettings = {'shutterBetsa'};    
 else
@@ -15,7 +15,7 @@ else
         'PiezoControlText','PiezoControlPanel','switchpiezo','piezoXString','piezoX','piezoYString','piezoY',...
         'piezoZString','piezoZ','piezoRangeXString','piezoRangeYString','piezoRangeZString',...
         'piezoRangeX','piezoRangeY','piezoRangeZ','piezoStepXString','piezoStepYString','piezoStepZString',...
-        'piezoStepX','piezoStepY','piezoStepZ','light','piezoLightValue'};
+        'piezoStepX','piezoStepY','piezoStepZ','light','piezoLightValue','PiezoXSweep','PiezoYSweep'};
 end
 
 TurnOffUselessSettings(ListUselessSettings);

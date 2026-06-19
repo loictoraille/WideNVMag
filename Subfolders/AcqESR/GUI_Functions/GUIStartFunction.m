@@ -43,6 +43,10 @@ if AcqParameters.Save == 1 && TotalScan > 1
     disp('Sarting log of command window')  % Toute sortie affichée ici sera enregistrée
 end
 
+if AcqParameters.Save == 0 && TotalScan > 1
+    name_diary_init = [AcqParameters.Data_Path 'backup'];
+end
+
 while i_scan <= TotalScan
 
     disp(['Starting acquisition number ' num2str(i_scan) ' / ' num2str(TotalScan)]);
@@ -51,13 +55,14 @@ while i_scan <= TotalScan
         BuildName = GenNextFileName(BuildName,panel.FileNamePrefixChoice.SelectedObject.String,AcqParameters.RepeatScan); % so that the date change does not change the name
         SaveAcqParameters({{BuildName,'BuildName'}});
         nomSave = BuildName;
-        PrintName = GetSaveName(BuildName,panel.Save.String);
+        PrintName = GetSaveName(BuildName,panel.Save.Value);
         panel.nameFile.String = PrintName;
     end
     tic
     [Lum_Initial,Lum_Initial_LaserOff] = StartFunction(i_scan, Lum_Initial, Lum_Initial_LaserOff, nomSave, time_one_scan);
-    if time_one_scan == 0
-        time_one_scan = toc;
+    measured_time_scan = toc;
+    if measured_time_scan > time_one_scan 
+        time_one_scan = measured_time_scan;
     end
     if stop_tag.Value == 1 % Check STOP Button
         break;
@@ -69,9 +74,8 @@ endTime = datetime('now'); % Capture l'heure de fin
 elapsedTime = endTime - startTime; % Calcule la durée écoulée
 
 if AcqParameters.RepeatScan > 1
-    % Convertir en heures, minutes, secondes
-    [h, m, s] = hms(elapsedTime);
-    disp(['Full acquisition lasted: ', num2str(floor(h)), 'h ', num2str(floor(m)), 'm ', num2str(round(s)), 's']);
+    disp(['Full acquisition lasted: ' formatDurationDate(elapsedTime)]);
+    panel.AcqTime.String = [panel.AcqTime.String newline 'Total Acquisition time = ' formatDurationDate(elapsedTime)];
     diary off;
     % update log file name
     newLogName = DiaryName(AcqParameters.Data_Path, nomSave_init, panel.FileNamePrefixChoice.SelectedObject.String,i_scan-1); 

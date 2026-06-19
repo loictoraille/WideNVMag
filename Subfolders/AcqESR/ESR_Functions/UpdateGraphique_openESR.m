@@ -16,8 +16,12 @@ ax = findobj('tag','Axes1');
 
 ImageMatrix = Lum_Current;
 
-if panel.DisplayLight.Value == 1
-    ImageMatrix = Lum_WithLightAndLaser;
+if panel.DisplayLightOpenESR.Value == 1 
+    if exist('Lum_WithLightAndLaser','var')
+        ImageMatrix = Lum_WithLightAndLaser;
+    else
+        panel.DisplayLightOpenESR.Value = 0;
+    end
 end
 
 if AcqParameters.MaxLum
@@ -52,8 +56,11 @@ end
 eval(['panel.NumPeaksChoice.SelectedObject = panel.NumPeaks' num2str(NumPeaks) ';' ]);
 
 MaxLum = str2double(panel.MaxLum.String);
+MaxLumAlwaysAuto = panel.MaxLumAlwaysAuto.Value;
 
-PrintImage(ax,ImageMatrix,AOIParameters,MaxLum);
+MaxLum = PrintImage(ax,ImageMatrix,AOIParameters,MaxLum,MaxLumAlwaysAuto);
+
+panel.MaxLum.String = num2str(MaxLum);
 
 if exist('T','var') && ~isempty(T)
     panel.Temp_txt.String = CreateT_string(T);
@@ -88,6 +95,15 @@ PrintESR(panel,M)
 
 panel.DataPath.String = FitParameters.DataPath;
 panel.TreatedDataPath.String = FitParameters.TreatedDataPath;
+
+if isfield(AcqParameters,'B_state') && strcmpi(AcqParameters.B_state,'ON')
+    panel.BPanel.Visible = 'on';
+    panel.BxCoilDisplay.String = sprintf('BxCoil = %.2f mT',AcqParameters.BxCoil);
+    panel.ByCoilDisplay.String = sprintf('ByCoil = %.2f mT',AcqParameters.ByCoil);
+    panel.BzCoilDisplay.String = sprintf('BzCoil = %.2f mT',AcqParameters.BzCoil);
+else
+    panel.BPanel.Visible = 'off';
+end
 
 guidata(gcf,panel);
 

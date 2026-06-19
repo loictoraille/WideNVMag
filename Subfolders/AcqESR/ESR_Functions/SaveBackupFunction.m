@@ -9,7 +9,17 @@ disp('saving backup...')
 load([getPath('Param') 'AcqParameters.mat']);
 Data_Path = AcqParameters.Data_Path;
 
-nomSave = NameGen(Data_Path,AcqParameters.FileNamePrefix);
+%% To avoid saving backup as a 'multiscan', rewrite the old content of NameGen
+ch = 1;
+strIn = AcqParameters.FileNamePrefix;
+nomSave = [strIn '-001'];
+
+while exist(fullfile(Data_Path,[nomSave '.mat']), 'file') == 2
+    ch = ch + 1;
+    nomSave = sprintf('%s-%03d', strIn, ch);
+end
+
+%%
 
 % Load everything into a structure
 % Slower than copy paste, but compresses the files

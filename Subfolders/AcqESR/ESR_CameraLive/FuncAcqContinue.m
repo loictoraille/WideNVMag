@@ -67,6 +67,10 @@ while exist('ObjCamera','var') && h.acqcont.Value%test value of stopcam button
     if exist('ObjCamera','var') && ~h.stopcam.Value;drawnow;end
     if exist('ObjCamera','var') && ~h.stopcam.Value;title(h.Axes_Camera,['Max pixel value = ' num2str(round(max(max(I))))]);end
         
+    if isvalid(h.MaxLumAlwaysAuto) && h.MaxLumAlwaysAuto.Value % check AutoMaxLum
+        FuncAutoMaxLumLive(h);
+    end
+
     if exist('ObjCamera','var') && h.stopcam.Value % check Stop button
         EndAcqCamera();
         h.stopcam.Value=false;

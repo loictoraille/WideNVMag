@@ -12,7 +12,8 @@ global TestWithoutHardware CameraType ObjCamera MW_Gen RF_Address SetupType
 [TestWithoutHardware, RF_Address, Data_Path, CameraChoice, SetupType] = readConfigFile('Config.txt');
 % Setup type helps defining setup differences, such as what is connected on the NI Card, if there is a laser shutter, etc
 
-CheckAndUpdateAcqParameters('','default');CheckAndUpdateFitParameters('','default');
+CheckAndUpdateAcqParameters('','default');FitParameters = CheckAndUpdateFitParameters('','default');
+OpenESRParameters = CheckAndUpdateOpenESRParameters('default');
 
 %% Comments on Camera Andor
 
@@ -35,6 +36,7 @@ tab_additional = hguitab(tgroup,'Title','Additional Parameters');
 tab_readtemp = hguitab(tgroup,'Title','Continuous temperature reading');
 tab_alignpiezo = hguitab(tgroup,'Title','Check Piezo Auto-Alignment');
 tab_controlcoil = hguitab(tgroup,'Title','Control Magnetic Coils');
+tab_config = hguitab(tgroup,'Title','Config File');
 tgroup.SelectedTab = tab2;
 
 Tab1;
@@ -44,6 +46,7 @@ Tab_Additional;
 Tab_ReadTemp;
 Tab_AlignPiezo;
 Tab_ControlCoil;
+Tab_Config;
 TurnUnusedSettingsInvisible();
 
 if TestWithoutHardware

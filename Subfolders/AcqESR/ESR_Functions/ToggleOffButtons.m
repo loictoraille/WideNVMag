@@ -5,6 +5,7 @@ h=guidata(gcbo);
 
 hMaxLum = findobj('tag','MaxLum');
 MaxLum = str2double(hMaxLum.String);
+MaxLumAlwaysAuto = h.MaxLumAlwaysAuto.Value;
 
 % Fit Button
 
@@ -61,7 +62,9 @@ hobjectcrop = findobj('tag','Crop');
     else
         ImageMatrix=M(:,:,1);
     end
-    PrintImage(ax,ImageMatrix,AcqParameters,MaxLum)
+    MaxLum = PrintImage(ax,ImageMatrix,AcqParameters,MaxLum,MaxLumAlwaysAuto);
+    h.MaxLum.String = num2str(MaxLum);
+    h.MaxLumLive.String = num2str(MaxLum);
  end
 
 end

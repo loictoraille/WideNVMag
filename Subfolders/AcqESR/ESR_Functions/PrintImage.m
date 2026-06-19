@@ -1,6 +1,11 @@
-function PrintImage(ax,ImageMatrix,AOIParameters,MaxLum)
+function [MaxLum] = PrintImage(ax,ImageMatrix,AOIParameters,MaxLum,MaxLumAlwaysAuto)
 
 [x_axis,y_axis,x_label,y_label] = DefineAxes(AOIParameters);
+
+if MaxLumAlwaysAuto
+    MaxLumVal = round(max(max(ImageMatrix)));
+    MaxLum = round(1.05*MaxLumVal);
+end
 
 axes(ax);
 imagesc(x_axis,y_axis,ImageMatrix,[0,MaxLum]);

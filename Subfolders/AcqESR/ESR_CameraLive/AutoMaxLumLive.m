@@ -1,27 +1,11 @@
 function AutoMaxLumLive(~,~)
-global handleImage
 
-if exist('handleImage','var') && ~isempty(handleImage)
+panel = guidata(gcbo);
 
-    panel = guidata(gcbo);
+%panel.MaxLumLive.Value = 1; I don't see the point of this line
 
-    panel.MaxLumLive.Value = 1;
+FuncAutoMaxLumLive(panel);
 
-    LumToPlot = handleImage.CData;
-
-    if exist('LumToPlot','var')
-
-        MaxLumVal = round(max(max(LumToPlot)));
-        MaxLum = max(1,round(1.05*MaxLumVal));
-        panel.MaxLum.String = num2str(MaxLum);
-        panel.MaxLumLive.String = num2str(MaxLum);
-        UpdateAcqParam();
-
-        set(get(handleImage, 'Parent'), 'CLim', [0 MaxLum]);
-
-    end
-
-end
-
+UpdateAcqParam();
 
 end
