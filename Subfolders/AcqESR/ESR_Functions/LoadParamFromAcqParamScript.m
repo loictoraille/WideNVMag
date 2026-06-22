@@ -31,3 +31,4 @@ TotalScan = AcqParameters.RepeatScan;
 
 MagSweep = AcqParameters.MagSweep;
 BSweepMax = AcqParameters.BSweepMax;
+BSweepMin = AcqParameters.BSweepMin;

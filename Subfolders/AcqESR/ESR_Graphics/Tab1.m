@@ -53,12 +53,6 @@ uicontrol('Parent',tab1,'Style','edit','tag','NumSweeps','FontSize',10,'units','
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.227 0.883 0.05 0.025],'String','MagSweep','Tooltip','Sweep the magnetic field intensity between O and BSweepMax with RepeatScan number of steps');
 uicontrol('Parent',tab1,'Style','checkbox','tag','MagSweep','FontSize',10,'units','normalized','Position',[0.285 0.888 0.066 0.025],'Value',AcqParameters.MagSweep,'Callback',@UpdateMagSweep);
 
-uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.315 0.888 0.02 0.025],'String','from');
-uicontrol('Parent',tab1,'Style','edit','tag','BSweepMin','FontSize',10,'units','normalized','Position',[0.3375 0.891 0.025 0.025],'String',num2str(AcqParameters.BSweepMin),'Callback',@UpdateAcqParam);
-uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.363 0.888 0.01 0.025],'String','to','Tooltip','Uses the BField parameters chosen in magnetic coil tab');
-uicontrol('Parent',tab1,'Style','edit','tag','BSweepMax','FontSize',10,'units','normalized','Position',[0.375 0.891 0.025 0.025],'String',num2str(AcqParameters.BSweepMax),'Callback',@UpdateAcqParam);
-uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.401 0.888 0.02 0.025],'String','mT');
-
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.968 0.043 0.025],'String','FCenter');
 uicontrol('Parent',tab1,'Style','edit','tag','FCenter','FontSize',10,'units','normalized','Position',[0.375 0.973 0.025 0.025],'String',num2str(AcqParameters.FCenter),'Callback',@UpdateAcqParam);
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.401 0.968 0.02 0.025],'String','GHz');
@@ -72,8 +66,14 @@ uicontrol('Parent',tab1,'Style','edit','tag','BackupNSweeps','FontSize',10,'unit
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.301 0.862 0.034 0.022],'String','sweeps');   
 
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.915 0.043 0.025],'String','RepeatScan');
-uicontrol('Parent',tab1,'Style','edit','tag','RepeatScan','FontSize',10,'units','normalized','Position',[0.375 0.919 0.025 0.025],'String',num2str(AcqParameters.RepeatScan),'Callback',@UpdateRepeatScan,...
+uicontrol('Parent',tab1,'Style','edit','tag','RepeatScan','FontSize',10,'units','normalized','Position',[0.375 0.921 0.025 0.021],'String',num2str(AcqParameters.RepeatScan),'Callback',@UpdateRepeatScan,...
     'Tooltip','To repeat the full acquisition with a new incremented name, the value is the total number of scans');
+
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.315 0.888 0.02 0.025],'String','from');
+uicontrol('Parent',tab1,'Style','edit','tag','BSweepMin','FontSize',10,'units','normalized','Position',[0.3375 0.891 0.025 0.025],'String',num2str(AcqParameters.BSweepMin),'Callback',@UpdateAcqParam);
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.363 0.888 0.01 0.025],'String','to','Tooltip','Uses the BField parameters chosen in magnetic coil tab');
+uicontrol('Parent',tab1,'Style','edit','tag','BSweepMax','FontSize',10,'units','normalized','Position',[0.375 0.891 0.025 0.025],'String',num2str(AcqParameters.BSweepMax),'Callback',@UpdateAcqParam);
+uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','left','Position',[0.401 0.888 0.02 0.025],'String','mT');
 
 uicontrol('Parent',tab1,'Style','text','FontSize',10,'units','normalized','HorizontalAlignment','right','Position',[0.33 0.862 0.043 0.022],'String','RefMWOff');
 uicontrol('Parent',tab1,'Style','edit','tag','RefMWOff','FontSize',10,'units','normalized','Position',[0.375 0.863 0.025 0.025],'String',num2str(AcqParameters.RefMWOff),'Callback',@UpdateAcqParam,...
