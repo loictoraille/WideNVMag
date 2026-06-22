@@ -1,39 +1,20 @@
-function UpdateOpenESRParam(hobject,~)
+function UpdateOpenESRParam(~,~)
 
-if exist("hobject",'var') && isfield(hobject,'Save')
-    panel = hobject;
+tag_DisplayLightOpenESR = findobj('Tag','DisplayLightOpenESR');
+tag_DisplayLight = findobj('Tag','DisplayLight');
+tag_MaxLumAlwaysAuto = findobj('Tag','MaxLumAlwaysAuto');
+tag_MaxLum = findobj('Tag','MaxLum');
+
+if isempty(tag_DisplayLightOpenESR)
+    DisplayLightOpenESR = tag_DisplayLight.Value;
 else
-    panel=guidata(gcbo);
+    DisplayLightOpenESR = tag_DisplayLightOpenESR.Value;
 end
 
-if isfield(panel,'DisplayLightOpenESR')
-    DisplayLightOpenESR = panel.DisplayLightOpenESR.Value;
-else
-    DisplayLightOpenESR = panel.DisplayLight.Value;
-end
-
-MaxLumAlwaysAuto = panel.MaxLumAlwaysAuto.Value;
-MaxLum = str2double(panel.MaxLum.String);
+MaxLumAlwaysAuto = tag_MaxLumAlwaysAuto.Value;
+MaxLum = str2double(tag_MaxLum.String);
 
 SaveOpenESRParameters({{DisplayLightOpenESR,'DisplayLightOpenESR'},...
     {MaxLumAlwaysAuto,'MaxLumAlwaysAuto'},{MaxLum,'MaxLum'}});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 end

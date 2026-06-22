@@ -75,15 +75,19 @@ elapsedTime = endTime - startTime; % Calcule la durée écoulée
 
 if AcqParameters.RepeatScan > 1
     disp(['Full acquisition lasted: ' formatDurationDate(elapsedTime)]);
-    panel.AcqTime.String = [panel.AcqTime.String newline 'Total Acquisition time = ' formatDurationDate(elapsedTime)];
-    diary off;
+    current_string = panel.AcqTime.String;
+    nRows = size(current_string,1);
+    if nRows > 1
+        current_string = current_string(1,:);
+    end
+    panel.AcqTime.String = [current_string newline 'Total Acquisition time = ' formatDurationDate(elapsedTime)];
+    diary off
     % update log file name
     newLogName = DiaryName(AcqParameters.Data_Path, nomSave_init, panel.FileNamePrefixChoice.SelectedObject.String,i_scan-1); 
     if (exist(name_diary_init,'file') == 2) && (strcmp(name_diary_init,newLogName) ~= 1)
         movefile(name_diary_init, newLogName);
     end
 end
-
 
 set(hobject,'ForegroundColor',[1,0,0]);
 set(hobject,'Value',0);

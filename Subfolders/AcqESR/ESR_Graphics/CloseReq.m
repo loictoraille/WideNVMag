@@ -92,6 +92,7 @@ if isvalid(hobject) % Ensure the figure handle is still valid
     end
 end
 
+diary off
 clearvars
 
 end
